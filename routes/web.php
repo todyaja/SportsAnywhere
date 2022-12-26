@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,12 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
 
 Route::resource('user', UserController::class);
+Route::resource('area', AreaController::class);
 
-Route::get('home', 'App\Http\Controllers\UserController@home')->name('home');
+Route::get('/', 'App\Http\Controllers\UserController@home')->name('home');
 Route::get('login', 'App\Http\Controllers\UserController@login')->name('login');
 Route::get('register', 'App\Http\Controllers\UserController@register')->name('register');
