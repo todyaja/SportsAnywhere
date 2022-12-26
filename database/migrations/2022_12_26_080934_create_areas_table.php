@@ -22,6 +22,9 @@ class CreateAreasTable extends Migration
             $table->integer('price');
             $table->string('address');
             $table->string('thumbnail');
+            $table->string('open_time')->default('09:00');
+            $table->string('close_time')->default('18:00');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
