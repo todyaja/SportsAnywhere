@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreAreaRequest;
+use App\Http\Requests\UpdateAreaRequest;
 
-class UserController extends Controller
+class AreaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,33 +16,6 @@ class UserController extends Controller
     public function index()
     {
         //
-
-
-        return view('home');
-    }
-
-    //function buat ke home
-    public function home()
-    {
-        //
-        $data = Area::orderBy('updated_at', 'desc')->take(20)->get();
-       //dd($data);
-
-        return view('home', compact(['data']));
-    }
-    //function buat login
-    public function login()
-    {
-        //
-
-        return view('login');
-    }
-    //function buat register
-    public function register()
-    {
-        //
-
-        return view('register');
     }
 
     /**
@@ -55,14 +28,13 @@ class UserController extends Controller
         //
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreAreaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAreaRequest $request)
     {
         //
     }
@@ -70,21 +42,24 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Area  $area
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    //FUNCTION BUAT MUNCULIN AREA Detail
+    public function show(Area $area)
     {
         //
+
+        return view('area.area_detail');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Area  $area
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Area $area)
     {
         //
     }
@@ -92,11 +67,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \App\Http\Requests\UpdateAreaRequest  $request
+     * @param  \App\Models\Area  $area
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateAreaRequest $request, Area $area)
     {
         //
     }
@@ -104,10 +79,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Area  $area
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Area $area)
     {
         //
     }
