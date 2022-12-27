@@ -13,8 +13,8 @@
 
 </style>
 
-<div class="container">
-    <div class="row justify-content-center align-items-center inner-row">
+<div class="container py-5">
+    <div class="row justify-content-center align-items-center">
         <div class="col-md-5">
             <div class="form-box w-100 p-4 d-flex flex-column justify-content-center mt-2 mb-2 rounded">
 
@@ -52,7 +52,7 @@
                     </div>
 
                     @if ($errors->any())
-                        <span class="text-danger" style="background-color: white">{{$errors->first()}}</span>
+                        <span class="bg-danger text-white w-100 d-flex justify-content-center">{{$errors->first()}}</span>
                     @endif
 
                     <div class="regisBtn mt-3">
