@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Area;
-use App\Http\Requests\StoreAreaRequest;
-use App\Http\Requests\UpdateAreaRequest;
-use App\Models\AreaType;
-use Illuminate\Support\Facades\DB;
+use App\Models\AreaPicture;
+use App\Http\Requests\StoreAreaPictureRequest;
+use App\Http\Requests\UpdateAreaPictureRequest;
 
-class AreaController extends Controller
+class AreaPictureController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,45 +26,37 @@ class AreaController extends Controller
     public function create()
     {
         //
-
-        $areatypes = DB::table('area_types')->orderByDesc('id')->get();
-
-        return view('area.create', compact(['areatypes']));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreAreaRequest  $request
+     * @param  \App\Http\Requests\StoreAreaPictureRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAreaRequest $request)
+    public function store(StoreAreaPictureRequest $request)
     {
         //
-        dd($request);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Area  $area
+     * @param  \App\Models\AreaPicture  $areaPicture
      * @return \Illuminate\Http\Response
      */
-    //FUNCTION BUAT MUNCULIN AREA Detail
-    public function show(Area $area)
+    public function show(AreaPicture $areaPicture)
     {
         //
-
-        return view('area.area_detail');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Area  $area
+     * @param  \App\Models\AreaPicture  $areaPicture
      * @return \Illuminate\Http\Response
      */
-    public function edit(Area $area)
+    public function edit(AreaPicture $areaPicture)
     {
         //
     }
@@ -74,11 +64,11 @@ class AreaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateAreaRequest  $request
-     * @param  \App\Models\Area  $area
+     * @param  \App\Http\Requests\UpdateAreaPictureRequest  $request
+     * @param  \App\Models\AreaPicture  $areaPicture
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAreaRequest $request, Area $area)
+    public function update(UpdateAreaPictureRequest $request, AreaPicture $areaPicture)
     {
         //
     }
@@ -86,10 +76,10 @@ class AreaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Area  $area
+     * @param  \App\Models\AreaPicture  $areaPicture
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Area $area)
+    public function destroy(AreaPicture $areaPicture)
     {
         //
     }
