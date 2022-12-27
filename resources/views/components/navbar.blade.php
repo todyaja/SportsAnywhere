@@ -14,29 +14,50 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
+                @auth
+                    @if (auth()->user()->role == 1)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/area/create">Create Sport Area</a>
+                        </li>
+                    @endif
+                @endauth
             </ul>
 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn" style="color:aliceblue; background-color: #E7B447" type="submit">Search</button>
-                <ul class="navbar-nav me-auto mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle w-100" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ asset('assets/profile_pictures/guest.jpg') }}" class="rounded-circle"
-                                style="width: 40px; height: 40px">
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">My Bookings</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </form>
+            <div class="d-flex">
+
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn" style="color:aliceblue; background-color: #E7B447"
+                        type="submit">Search</button>
+                </form>
+                @auth
+                    <ul class="navbar-nav me-auto mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle w-100" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ asset('assets/profile_pictures/guest.jpg') }}" class="rounded-circle"
+                                    style="width: 40px; height: 40px">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">My Bookings</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <form method="POST" action="{{ url('/logout') }}">
+                                        @csrf
+                                        <button class="dropdown-item" type="submit">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                @else
+                    <a href="/login"><button class="btn btn-danger ml-4">Login</button></a>
+                @endauth
+
+            </div>
 
         </div>
     </div>

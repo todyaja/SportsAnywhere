@@ -79,9 +79,11 @@ class UserController extends Controller
     {
         if(Auth::attempt($request->only('email', 'password')))
         {
-            return redirect('/home');
+            return redirect('/');
         }
-        return redirect('/login');
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
     }
 
     /**
@@ -138,5 +140,15 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

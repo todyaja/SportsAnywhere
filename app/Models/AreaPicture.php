@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class AreaPicture extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'area_id',
+        'pictures',
+    ];
 }

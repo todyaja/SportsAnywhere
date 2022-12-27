@@ -45,29 +45,29 @@
                         </div>
                         <div class="input-group input-group-sm mb-3">
                             <select name="area_open_hour" class="form-select mb-3" aria-label="Default select example">
-                                    <option value="00">00:00</option>
-                                    <option value="00">01:00</option>
-                                    <option value="00">02:00</option>
-                                    <option value="00">03:00</option>
-                                    <option value="00">04:00</option>
-                                    <option value="00">05:00</option>
-                                    <option value="00">06:00</option>
-                                    <option value="00">07:00</option>
-                                    <option value="00">08:00</option>
-                                    <option value="00">09:00</option>
-                                    <option value="00">10:00</option>
-                                    <option value="00">11:00</option>
-                                    <option value="00">12:00</option>
-                                    <option value="00">13:00</option>
-                                    <option value="00">14:00</option>
-                                    <option value="00">15:00</option>
-                                    <option value="00">16:00</option>
-                                    <option value="00">18:00</option>
-                                    <option value="00">19:00</option>
-                                    <option value="00">20:00</option>
-                                    <option value="00">21:00</option>
-                                    <option value="00">22:00</option>
-                                    <option value="00">23:00</option>
+                                <option value="00">00:00</option>
+                                <option value="01">01:00</option>
+                                <option value="02">02:00</option>
+                                <option value="03">03:00</option>
+                                <option value="04">04:00</option>
+                                <option value="05">05:00</option>
+                                <option value="06">06:00</option>
+                                <option value="07">07:00</option>
+                                <option value="08">08:00</option>
+                                <option value="09">09:00</option>
+                                <option value="10">10:00</option>
+                                <option value="11">11:00</option>
+                                <option value="12">12:00</option>
+                                <option value="13">13:00</option>
+                                <option value="14">14:00</option>
+                                <option value="15">15:00</option>
+                                <option value="16">16:00</option>
+                                <option value="18">18:00</option>
+                                <option value="19">19:00</option>
+                                <option value="20">20:00</option>
+                                <option value="21">21:00</option>
+                                <option value="22">22:00</option>
+                                <option value="23">23:00</option>
                             </select>
 
                         </div>
@@ -78,30 +78,30 @@
                             </h5>
                         </div>
                         <div class="input-group input-group-sm mb-3">
-                            <select name="area_open_hour" class="form-select mb-3" aria-label="Default select example">
-                                    <option value="00">00:00</option>
-                                    <option value="00">01:00</option>
-                                    <option value="00">02:00</option>
-                                    <option value="00">03:00</option>
-                                    <option value="00">04:00</option>
-                                    <option value="00">05:00</option>
-                                    <option value="00">06:00</option>
-                                    <option value="00">07:00</option>
-                                    <option value="00">08:00</option>
-                                    <option value="00">09:00</option>
-                                    <option value="00">10:00</option>
-                                    <option value="00">11:00</option>
-                                    <option value="00">12:00</option>
-                                    <option value="00">13:00</option>
-                                    <option value="00">14:00</option>
-                                    <option value="00">15:00</option>
-                                    <option value="00">16:00</option>
-                                    <option value="00">18:00</option>
-                                    <option value="00">19:00</option>
-                                    <option value="00">20:00</option>
-                                    <option value="00">21:00</option>
-                                    <option value="00">22:00</option>
-                                    <option value="00">23:00</option>
+                            <select name="area_close_hour" class="form-select mb-3" aria-label="Default select example">
+                                <option value="00">00:00</option>
+                                <option value="01">01:00</option>
+                                <option value="02">02:00</option>
+                                <option value="03">03:00</option>
+                                <option value="04">04:00</option>
+                                <option value="05">05:00</option>
+                                <option value="06">06:00</option>
+                                <option value="07">07:00</option>
+                                <option value="08">08:00</option>
+                                <option value="09">09:00</option>
+                                <option value="10">10:00</option>
+                                <option value="11">11:00</option>
+                                <option value="12">12:00</option>
+                                <option value="13">13:00</option>
+                                <option value="14">14:00</option>
+                                <option value="15">15:00</option>
+                                <option value="16">16:00</option>
+                                <option value="18">18:00</option>
+                                <option value="19">19:00</option>
+                                <option value="20">20:00</option>
+                                <option value="21">21:00</option>
+                                <option value="22">22:00</option>
+                                <option value="23">23:00</option>
                             </select>
 
                         </div>
@@ -115,7 +115,7 @@
                     </h5>
                 </div>
                 <div class="input-group input-group-sm mb-3">
-                    <input type="text" name="area_price" class="form-control" aria-label="Default"
+                    <input type="number" name="area_price" class="form-control" aria-label="Default"
                         aria-describedby="inputGroup-sizing-default">
                     <div class="input-group-append">
                         <span class="input-group-text" id="basic-addon2">per hour</span>
@@ -165,6 +165,9 @@
                     </div>
                 </div>
             </div>
+            @if ($errors->any())
+                <span class="bg-danger text-white w-100 d-flex justify-content-center">{{ $errors->first() }}</span>
+            @endif
             <div class="d-flex w-100">
                 <button type="submit" class="btn btn-primary w-100">Submit</button>
             </div>
