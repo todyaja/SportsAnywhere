@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -46,11 +47,38 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+       $this->validate($request,[
+            'role' => 'required',
+            'username' => 'required|min:5',
+            'email' => 'required|unique:users,email',
+            'phone_number' => 'required|min:6|max:15',
+            'password' => 'required|min:6',
+            'confirm_password' => 'required_with:password|same:password|min:6'
+
+        ]);
+
+        User::create([
+            'role' => $request->role,
+            'username' => $request->username,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'password' => bcrypt($request->password),
+        ]);
+
+        return redirect('/login');
+
     }
 
+    public function loginProcess(Request $request)
+    {
+        if(Auth::attempt($request->only('email', 'password')))
+        {
+            return redirect('/home');
+        }
+        return redirect('/login');
+    }
 
     /**
      * Store a newly created resource in storage.

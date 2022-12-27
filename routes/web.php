@@ -23,3 +23,5 @@ Route::resource('user', UserController::class);
 Route::get('home', 'App\Http\Controllers\UserController@home')->name('home');
 Route::get('login', 'App\Http\Controllers\UserController@login')->name('login');
 Route::get('register', 'App\Http\Controllers\UserController@register')->name('register');
+Route::post('registeruser','App\Http\Controllers\UserController@create')->name('registeruser');
+Route::post('loginprocess', 'App\Http\Controllers\UserController@loginProcess')->name('loginprocess');
