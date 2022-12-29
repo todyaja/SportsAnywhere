@@ -2,19 +2,19 @@
 @extends('layout.master')
 @section('content')
     <div class="container d-flex flex-column">
-        <h1 class="mt-4">Sport Areas</h1>
-        <div>
+        <h1 class="my-4">Sport Areas</h1>
+
+        <div class="d-flex flex-row col-9 justify-content-between align-items-center">
             @if (app('request')->input('searchArea') != '')
                 <h2 class="fs-4 my-3">Show result for "{{ app('request')->input('searchArea') }}"</h2>
             @endif
-            {{-- <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Regular link</a></li>
-                <li><a class="dropdown-item active" href="#" aria-current="true">Active link</a></li>
-                <li><a class="dropdown-item" href="#">Another link</a></li>
-            </ul> --}}
+
+
         </div>
+
+
         <div class='row d-flex'>
-            <div class="row d-flex justify-content-start col-9">
+            <div class="row d-flex justify-content-start col-9" id="areaList">
                 @foreach ($areas as $d)
                     <div class="col-4">
                         <a href="{{ url('area/' . $d->id) }}" style="text-decoration: none">
@@ -34,7 +34,20 @@
             </div>
             <div class='col-3 ms-4' >
                 <div class="card p-4">
-                    <form action="{{url('search')}}" method="GET">
+                    <form action="{{url('search')}}" method="GET" >
+                        <div class="d-flex flex-column">
+                            <label for="sortBy">
+                                <h4 class="d-flex text-nowrap me-4">Sort</h4>
+                            </label>
+
+                            <select class="form-select my-3" aria-label="Default select" name="sortBy" id="sortBy" onchange="this.form.submit()">
+                                <option value="1" {{app('request')->input('sortBy') === 1 ? 'selected' : ''}}>Ascending Alphabet</option>
+                                <option value="2" {{app('request')->input('sortBy') === 2 ? 'selected' : ''}}>Descending Alphabet</option>
+                                <option value="3" {{app('request')->input('sortBy') === 3 ? 'selected' : ''}}>Highest Price</option>
+                                <option value="4" {{app('request')->input('sortBy') === 4 ? 'selected' : ''}}>Lowest Price</option>
+                            </select>
+                        </div>
+
                         <div class="d-flex flex-row justify-content-between align-items-center">
                             <h4>Filter</h4>
                             <button style="border: none; background-color: transparent" class="p-0" type="button" onclick="clearFilter()">
@@ -55,7 +68,7 @@
                                 @foreach ($areaTypes as $type)
                                     <input type="checkbox" class="btn-check" name="categoryFilter[]" id="btnradio-{{$type->id}}" autocomplete="off" value="{{$type->id}}"
                                     {{app('request')->input('categoryFilter') != null && in_array($type->id, app('request')->input('categoryFilter')) ? 'checked' : ''}}>
-                                    <label class="btn btn-outline-danger rounded-3 my-2" for="btnradio-{{$type->id}}">{{$type->name}}</label>
+                                    <label class="btn btn-outline-warning rounded-3 my-2 text-black" for="btnradio-{{$type->id}}">{{$type->name}}</label>
                                 @endforeach
 
                             </div>

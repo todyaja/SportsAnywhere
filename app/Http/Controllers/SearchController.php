@@ -35,8 +35,36 @@ class SearchController extends Controller
         if ($maxPrice){
             $areas = $areas->where('price', '<=', $maxPrice);
         }
-
         $areas = $areas->get();
+
+        //sort
+        $sortBy = $request->input('sortBy');
+        /**
+         * 1 -> ascending alphabet
+         * 2 -> descending alphabet
+         * 3 -> highest price
+         * 4 -> lowest price
+         */
+        switch($sortBy){
+            case 1: {
+                $areas = $areas->sortBy('name');
+                break;
+            }
+            case 2: {
+                $areas = $areas->sortByDesc('name');
+                break;
+            }
+            case 3: {
+                $areas = $areas->sortByDesc('price');
+                break;
+            }
+            case 4: {
+                $areas = $areas->sortBy('price');
+                break;
+            }
+        }
+
+
         $areaTypes = AreaType::all();
         return view('search.index', compact('areas', 'areaTypes', 'categoryFilter'));
     }
@@ -59,7 +87,7 @@ class SearchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('search.index');
     }
 
     /**
@@ -68,9 +96,32 @@ class SearchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        return view('search.index');
+        $areasName = Area::where('name', 'LIKE', '%'.$request->input('searchArea').'%');
+        $areasDesc = Area::where('description', 'LIKE', '%'.$request->input('searchArea').'%');
+
+        //filter
+        $categoryFilter = $request->input('categoryFilter');
+
+        if ($categoryFilter){
+            $areasName = $areasName->whereIn('area_type', $categoryFilter);
+            $areasDesc = $areasDesc->whereIn('area_type', $categoryFilter);
+        }
+        $areas = $areasName->union($areasDesc);
+        $minPrice = $request->input('minPrice');
+        $maxPrice = $request->input('maxPrice');
+        if ($minPrice){
+            $areas = $areas->where('price', '>=', $minPrice);
+        }
+        if ($maxPrice){
+            $areas = $areas->where('price', '<=', $maxPrice);
+        }
+
+        $areas = $areas->get();
+        $areaTypes = AreaType::all();
+        return view('search.index', compact('areas', 'areaTypes', 'categoryFilter'));
+
     }
 
     /**
@@ -81,7 +132,7 @@ class SearchController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('search.index');
     }
 
     /**
@@ -93,7 +144,7 @@ class SearchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return view('search.index');
     }
 
     /**
