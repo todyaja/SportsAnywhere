@@ -90,7 +90,7 @@
 
     <script>
         function clearFilter() {
-            const btns = document.getElementsByName('categoryFilter');
+            const btns = document.getElementsByName('categoryFilter[]');
             btns.forEach((item) => {
                 item.removeAttribute('checked')
             })
