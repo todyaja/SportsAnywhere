@@ -24,3 +24,10 @@
         <div class="d-flex justify-content-start my-3"><button class="btn btn-primary">See All</button></div>
     </div>
 @endsection
+<script>
+    var msg = '{{ Session::get('alert') }}';
+    var exist = '{{ Session::has('alert') }}';
+    if (exist) {
+        alert(msg);
+    }
+</script>

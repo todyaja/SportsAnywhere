@@ -22,5 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AreaSeeder::class,
         ]);
+        $this->call([
+            AreaPictureSeeder::class,
+        ]);
     }
 }

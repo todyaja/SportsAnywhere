@@ -17,11 +17,19 @@ class UserSeeder extends Seeder
         //
         $items = collect([
             [
-                'email' => 'Test',
-                'username' => 'Test',
-                'password' => 'Test',
+                'email' => 'user1@gmail.com',
+                'username' => 'user1@gmail.com',
+                'password' => bcrypt('password'),
                 'profile_picture' => 'Test',
                 'phone_number' => 'Test',
+                'role' => 0
+            ],  [
+                'email' => 'host1@gmail.com',
+                'username' => 'host1@gmail.com',
+                'password' => bcrypt('password'),
+                'profile_picture' => 'Test',
+                'phone_number' => 'Test',
+                'role' => 1
             ],
 
 
