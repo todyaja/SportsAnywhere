@@ -26,7 +26,15 @@
                                     <p class="card-text text-black">{{ Str::limit($d->description, 100) }}</p>
                                     <h6 class="text-secondary">{{ Str::limit($d->address, 40) }}</h6>
                                 </div>
-                                <div class="card-footer bg-transparent">Rp{{ $d->price }} / hour</div>
+                                <div class="card-footer bg-transparent flex-row d-flex justify-content-between">
+                                    Rp{{ $d->price }} / hour
+                                    <div>
+                                        {{ $d->rating }}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill mb-1" viewBox="0 0 16 16">
+                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -72,6 +80,21 @@
                                 @endforeach
 
                             </div>
+
+                        </div>
+
+                        <div class="w-100 d-flex flex-column my-2">
+                            <label class="my-2">
+                                <h6>Rating</h6>
+                            </label>
+
+                            <input type="checkbox" class="btn-check" name="ratingFilter" id="btnRating" autocomplete="off" value="4" {{ app('request')->input('ratingFilter') == 4 ? 'checked' : ''}}>
+                            <label class="btn btn-outline-warning rounded-3 my-2 text-black align-items-center" for="btnRating">
+                                More than 4
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill mb-1" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </label>
 
                         </div>
 

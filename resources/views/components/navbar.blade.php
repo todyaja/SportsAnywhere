@@ -27,7 +27,7 @@
 
                 <form class="d-flex" role="search" action="{{ url('search') }}" method="GET">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchArea" id="searchArea">
-                    <button class="btn" style="color:aliceblue; background-color: #E7B447"
+                    <button class="btn me-3" style="color:aliceblue; background-color: #E7B447"
                          type="submit">Search</button>
                 </form>
                 @auth

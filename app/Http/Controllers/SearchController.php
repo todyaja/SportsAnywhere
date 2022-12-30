@@ -16,9 +16,10 @@ class SearchController extends Controller
      */
     public function index(Request $request)
     {
-        $areasName = Area::where('name', 'LIKE', '%'.$request->input('searchArea').'%');
-        $areasDesc = Area::where('description', 'LIKE', '%'.$request->input('searchArea').'%');
-
+        $areasName = Area::leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')
+                    ->where('name', 'LIKE', '%'.$request->input('searchArea').'%');
+        $areasDesc = Area::leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')
+                    ->where('description', 'LIKE', '%'.$request->input('searchArea').'%');
         //filter
         $categoryFilter = $request->input('categoryFilter');
 
@@ -26,6 +27,14 @@ class SearchController extends Controller
             $areasName = $areasName->whereIn('area_type', $categoryFilter);
             $areasDesc = $areasDesc->whereIn('area_type', $categoryFilter);
         }
+
+        $rating = $request->input('ratingFilter');
+
+        if ($rating){
+            $areasName = $areasName->where('rating', '>=', $rating);
+            $areasDesc = $areasDesc->where('rating', '>=', $rating);
+        }
+
         $areas = $areasName->union($areasDesc);
         $minPrice = $request->input('minPrice');
         $maxPrice = $request->input('maxPrice');
@@ -36,6 +45,12 @@ class SearchController extends Controller
             $areas = $areas->where('price', '<=', $maxPrice);
         }
         $areas = $areas->get();
+        $areas = $areas->transform(function ($dt) {
+            if ($dt->rating == null){
+                $dt->rating = 0;
+            }
+            return $dt;
+        });
 
         //sort
         $sortBy = $request->input('sortBy');
@@ -63,10 +78,8 @@ class SearchController extends Controller
                 break;
             }
         }
-
-
-        $areaTypes = AreaType::all();
-        return view('search.index', compact('areas', 'areaTypes', 'categoryFilter'));
+        $areaTypes = AreaType::all()->sortByDesc('id');
+        return view('search.index', compact('areas', 'areaTypes'));
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AreaRating;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,5 +26,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AreaPictureSeeder::class,
         ]);
+        $this->call([
+            BookingSeeder::class,
+        ]);
+        $this->call([
+            AreaRatingSeeder::class,
+        ]);
+
     }
 }
