@@ -29,7 +29,7 @@ class BookingController extends Controller
             $areas = Area::rightJoin('bookings', 'areas.id', '=', 'bookings.area_id')
                 ->leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')
                 ->select('areas.*', 'bookings.*', 'area_ratings.rating')
-                ->where('guest_id', $user->id);
+                ->where('bookings.guest_id', $user->id)->get();
         }
         $bookings = $areas->mapToGroups(function($item, $key){
                 $now = Carbon::now()->toDateTimeString();
