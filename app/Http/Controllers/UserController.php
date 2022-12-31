@@ -25,12 +25,17 @@ class UserController extends Controller
     //function buat ke home
     public function home()
     {
-        //
-        $data = Area::orderBy('updated_at', 'desc')->take(20)->get();
-       //dd($data);
+        $data = Area::leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')->orderBy('areas.updated_at', 'desc')->take(20)->get();
+        $data->transform(function ($dt) {
+                if ($dt->rating == null){
+                    $dt->rating = 0;
+                }
+                return $dt;
+        });
 
         return view('home', compact(['data']));
     }
+
     //function buat login
     public function login()
     {

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +27,5 @@ Route::get('register', 'App\Http\Controllers\UserController@register')->name('re
 Route::post('registeruser','App\Http\Controllers\UserController@create')->name('registeruser');
 Route::post('loginprocess', 'App\Http\Controllers\UserController@loginProcess')->name('loginprocess');
 Route::post('logout', 'App\Http\Controllers\UserController@logout')->name('logout');
+Route::resource('search', SearchController::class);
+Route::resource('bookings', BookingController::class);
