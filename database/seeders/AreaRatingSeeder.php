@@ -18,17 +18,17 @@ class AreaRatingSeeder extends Seeder
         $items = collect([
                 [
                     'area_id' => '1',
-                    'created_by' => 1,
+                    'guest_id' => 1,
                     'review' => $faker->text(),
                     'rating' => $faker->numberBetween(0, 5)
                 ],  [
                     'area_id' => '2',
-                    'created_by' => 2,
+                    'guest_id' => 2,
                     'review' => $faker->text(),
                     'rating' => $faker->numberBetween(0, 5)
                 ],  [
                     'area_id' => '3',
-                    'created_by' => 1,
+                    'guest_id' => 1,
                     'review' => $faker->text(),
                     'rating' => $faker->numberBetween(0, 5)
                 ],

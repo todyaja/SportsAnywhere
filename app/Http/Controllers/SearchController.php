@@ -17,8 +17,10 @@ class SearchController extends Controller
     public function index(Request $request)
     {
         $areasName = Area::leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')
+                    ->select('areas.*', 'area_ratings.rating_id', 'area_ratings.guest_id', 'area_ratings.review', 'area_ratings.rating')
                     ->where('name', 'LIKE', '%'.$request->input('searchArea').'%');
         $areasDesc = Area::leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')
+                    ->select('areas.*', 'area_ratings.rating_id', 'area_ratings.guest_id', 'area_ratings.review', 'area_ratings.rating')
                     ->where('description', 'LIKE', '%'.$request->input('searchArea').'%');
         //filter
         $categoryFilter = $request->input('categoryFilter');
@@ -44,13 +46,6 @@ class SearchController extends Controller
         if ($maxPrice){
             $areas = $areas->where('price', '<=', $maxPrice);
         }
-        $areas = $areas->get();
-        $areas = $areas->transform(function ($dt) {
-            if ($dt->rating == null){
-                $dt->rating = 0;
-            }
-            return $dt;
-        });
 
         //sort
         $sortBy = $request->input('sortBy');
@@ -62,22 +57,33 @@ class SearchController extends Controller
          */
         switch($sortBy){
             case 1: {
-                $areas = $areas->sortBy('name');
+                $areas = $areas->orderBy('name', 'ASC');
                 break;
             }
             case 2: {
-                $areas = $areas->sortByDesc('name');
+                $areas = $areas->orderBy('name', 'DESC');
                 break;
             }
             case 3: {
-                $areas = $areas->sortByDesc('price');
+                $areas = $areas->orderBy('price', 'DESC');
                 break;
             }
             case 4: {
-                $areas = $areas->sortBy('price');
+                $areas = $areas->orderBy('price', 'ASC');
                 break;
             }
+            default: {
+                $areas = $areas->orderBy('name', 'ASC');
+            }
         }
+
+        $areas = $areas->simplePaginate(6);
+        $areas->transform(function ($dt) {
+            if ($dt->rating == null){
+                $dt->rating = 0;
+            }
+            return $dt;
+        });
         $areaTypes = AreaType::all()->sortByDesc('id');
         return view('search.index', compact('areas', 'areaTypes'));
     }

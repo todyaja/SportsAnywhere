@@ -16,7 +16,7 @@ class CreateAreaRatingsTable extends Migration
         Schema::create('area_ratings', function (Blueprint $table) {
             $table->id('rating_id');
             $table->foreignId('area_id')->references('id')->on('areas');
-            $table->foreignId('created_by')->references('id')->on('users');
+            $table->foreignId('guest_id')->references('id')->on('users');
             $table->string('review');
             $table->integer('rating');
             $table->timestamps();

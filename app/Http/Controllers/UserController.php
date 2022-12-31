@@ -25,7 +25,6 @@ class UserController extends Controller
     //function buat ke home
     public function home()
     {
-        //
         $data = Area::leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')->orderBy('areas.updated_at', 'desc')->take(20)->get();
         $data = $data->transform(function ($dt) {
                 if ($dt->rating == null){
@@ -36,6 +35,7 @@ class UserController extends Controller
 
         return view('home', compact(['data']));
     }
+
     //function buat login
     public function login()
     {

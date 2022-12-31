@@ -13,9 +13,10 @@
         </div>
 
 
-        <div class='row d-flex'>
-            <div class="row d-flex justify-content-start col-9" id="areaList">
-                @foreach ($areas as $d)
+        <div class='row d-flex '>
+            <div class='d-flex col-9 flex-column'>
+                <div class="row d-flex justify-content-start g-0" id="areaList">
+                   @foreach ($areas as $d)
                     <div class="col-4">
                         <a href="{{ url('area/' . $d->id) }}" style="text-decoration: none">
                             <div class="card my-2" style="width: 18rem; height: 30rem">
@@ -38,9 +39,14 @@
                             </div>
                         </a>
                     </div>
-                @endforeach
+                    @endforeach
+                </div>
+                <div class='d-flex justify-content-center'>
+                    {{ $areas->links()}}
+                </div>
             </div>
-            <div class='col-3 ms-4' >
+
+            <div class='col-3'>
                 <div class="card p-4">
                     <form action="{{url('search')}}" method="GET" >
                         <div class="d-flex flex-column">
@@ -49,10 +55,10 @@
                             </label>
 
                             <select class="form-select my-3" aria-label="Default select" name="sortBy" id="sortBy" onchange="this.form.submit()">
-                                <option value="1" {{app('request')->input('sortBy') === 1 ? 'selected' : ''}}>Ascending Alphabet</option>
-                                <option value="2" {{app('request')->input('sortBy') === 2 ? 'selected' : ''}}>Descending Alphabet</option>
-                                <option value="3" {{app('request')->input('sortBy') === 3 ? 'selected' : ''}}>Highest Price</option>
-                                <option value="4" {{app('request')->input('sortBy') === 4 ? 'selected' : ''}}>Lowest Price</option>
+                                <option value="1" {{app('request')->input('sortBy') == 1 ? 'selected' : ''}}>Ascending Alphabet</option>
+                                <option value="2" {{app('request')->input('sortBy') == 2 ? 'selected' : ''}}>Descending Alphabet</option>
+                                <option value="3" {{app('request')->input('sortBy') == 3 ? 'selected' : ''}}>Highest Price</option>
+                                <option value="4" {{app('request')->input('sortBy') == 4 ? 'selected' : ''}}>Lowest Price</option>
                             </select>
                         </div>
 
