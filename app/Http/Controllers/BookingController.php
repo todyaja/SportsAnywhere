@@ -24,25 +24,28 @@ class BookingController extends Controller
             $areas = Area::rightJoin('bookings', 'areas.id', '=', 'bookings.area_id')
                 ->leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')
                 ->select('areas.*', 'bookings.*', 'area_ratings.rating')
-                ->where('created_by', $user->id)->get();
+                ->where('created_by', $user->id)->get()->sortBy('start_date');
         } else {
             $areas = Area::rightJoin('bookings', 'areas.id', '=', 'bookings.area_id')
                 ->leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')
                 ->select('areas.*', 'bookings.*', 'area_ratings.rating')
-                ->where('bookings.guest_id', $user->id)->get();
+                ->where('bookings.guest_id', $user->id)->get()->sortBy('start_date');
         }
         $bookings = $areas->mapToGroups(function($item, $key){
                 $now = Carbon::now()->toDateTimeString();
                 // dd($now);
-                if ($item->end_date <= $now){
-                    return ['completed' => $item];
-                }
-                if ($now >= $item->start_date && $now < $item->end_date){
-                    return ['ongoing' => $item];
-                }
-                if ($now < $item->start_date){
-                    return ['upcoming' => $item];
-                }
+                if ($item->cancelled == 0){
+                    if ($item->end_date <= $now){
+                        return ['completed' => $item];
+                    }
+                    if ($now >= $item->start_date && $now < $item->end_date){
+                        return ['ongoing' => $item];
+                    }
+                    if ($now < $item->start_date){
+                        return ['upcoming' => $item];
+                    }
+                } else return ['cancelled' => $item];
+
                 return ['none' => $item];
         });
 
@@ -112,6 +115,12 @@ class BookingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $update = Booking::where('booking_id', $id)->update([
+            'cancelled' => 1
+        ]);
+        if ($update > 0){
+            $message = 'Booking successfully cancelled!';
+        } else $message = 'Something went wrong. Please try again.';
+        return redirect('/bookings')->with('alert', $message);
     }
 }
