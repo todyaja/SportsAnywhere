@@ -19,7 +19,7 @@ class CreateBookingsTable extends Migration
             $table->foreignId('guest_id')->references('id')->on('users');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->integer('status')->default(0);
+            $table->integer('cancelled')->default(0);
             $table->timestamps();
         });
     }
