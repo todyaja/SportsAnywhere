@@ -26,12 +26,12 @@ class UserController extends Controller
     public function home()
     {
         $data = Area::leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')->orderBy('areas.updated_at', 'desc')->take(20)->get();
-        $data = $data->transform(function ($dt) {
+        $data->transform(function ($dt) {
                 if ($dt->rating == null){
                     $dt->rating = 0;
                 }
                 return $dt;
-            });
+        });
 
         return view('home', compact(['data']));
     }

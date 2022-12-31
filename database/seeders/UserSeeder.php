@@ -38,6 +38,14 @@ class UserSeeder extends Seeder
                 'phone_number' => 'Test',
                 'role' => 1
             ],
+            [
+                'email' => 'host2@gmail.com',
+                'username' => 'host2@gmail.com',
+                'password' => bcrypt('password'),
+                'profile_picture' => 'Test',
+                'phone_number' => 'Test',
+                'role' => 1
+            ],
 
 
         ])->each(function ($item){
