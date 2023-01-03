@@ -14,13 +14,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
-                @auth
-                    @if (auth()->user()->role == 1)
-                        <li class="nav-item">
-                            <a class="nav-link" href="/area/create">Create Sport Area</a>
-                        </li>
-                    @endif
-                @endauth
             </ul>
 
             <div class="d-flex">

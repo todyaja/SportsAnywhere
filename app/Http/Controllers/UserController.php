@@ -28,9 +28,8 @@ class UserController extends Controller
     {
         $data = Area::orderBy('areas.updated_at', 'desc')->take(20)->get();
         foreach($data as $d){
-            $d->rating = AreaRating::where('area_id', $d->id)->get()->avg('rating') == null ? 0 : AreaRating::where('area_id', $d->id)->get()->avg('rating');
+            $d->rating = number_format(AreaRating::where('area_id', $d->id)->get()->avg('rating') == null ? 0 : AreaRating::where('area_id', $d->id)->get()->avg('rating'),1);
         }
-
 
         return view('home', compact(['data']));
     }
