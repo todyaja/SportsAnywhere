@@ -1,7 +1,7 @@
 @section('title', 'SportsAnywhere')
 @extends('layout.master')
 @section('content')
-    <div style="height: 90%; width: 100%; background:url('{{ asset('assets/logo.png') }}'); height: 100%;
+    <div style="height: 90%; width: 100%; background:url('{{ asset('assets/home_page_background.jpeg') }}'); height: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;"
@@ -11,7 +11,7 @@
             <h1 class="text-white pb-5">Sports Area</h1>
             <h3 class="text-white py-5">for your daily sport needs</h3>
 
-            <a href="/about"><button class="btn btn-warning"><h4>Learn More<h4></button></a>
+            <a href="/about"><button class="btn btn-warning p-3"><h4>Learn More<h4></button></a>
         </div>
     </div>
     <div class="container d-flex flex-column">
