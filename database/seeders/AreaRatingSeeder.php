@@ -22,6 +22,16 @@ class AreaRatingSeeder extends Seeder
                     'review' => $faker->text(),
                     'rating' => $faker->numberBetween(0, 5)
                 ],  [
+                    'area_id' => '1',
+                    'guest_id' => 2,
+                    'review' => $faker->text(),
+                    'rating' => $faker->numberBetween(0, 5)
+                ],[
+                    'area_id' => '1',
+                    'guest_id' => 1,
+                    'review' => $faker->text(),
+                    'rating' => $faker->numberBetween(0, 5)
+                ],[
                     'area_id' => '2',
                     'guest_id' => 2,
                     'review' => $faker->text(),
@@ -32,6 +42,19 @@ class AreaRatingSeeder extends Seeder
                     'review' => $faker->text(),
                     'rating' => $faker->numberBetween(0, 5)
                 ],
+                [
+                    'area_id' => '4',
+                    'guest_id' => 1,
+                    'review' => $faker->text(),
+                    'rating' => 4
+                ],
+                [
+                    'area_id' => '4',
+                    'guest_id' => 1,
+                    'review' => $faker->text(),
+                    'rating' => 5
+                ],
+
             ])->each(function ($item) {
                 AreaRating::create($item);
             });

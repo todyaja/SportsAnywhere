@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\AreaRating;
 use App\Models\AreaType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class SearchController extends Controller
@@ -17,11 +19,14 @@ class SearchController extends Controller
     public function index(Request $request)
     {
         $areasName = Area::leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')
-                    ->select('areas.*', 'area_ratings.rating_id', 'area_ratings.guest_id', 'area_ratings.review', 'area_ratings.rating')
-                    ->where('name', 'LIKE', '%'.$request->input('searchArea').'%');
+                    ->select('areas.id', 'areas.name', 'areas.description', 'areas.price', 'areas.thumbnail', DB::raw('AVG(rating) as rating'))
+                    ->where('name', 'LIKE', '%'.$request->input('searchArea').'%')
+                    ->groupBy('areas.id', 'areas.name', 'areas.description', 'areas.price', 'areas.thumbnail');
         $areasDesc = Area::leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')
-                    ->select('areas.*', 'area_ratings.rating_id', 'area_ratings.guest_id', 'area_ratings.review', 'area_ratings.rating')
-                    ->where('description', 'LIKE', '%'.$request->input('searchArea').'%');
+                    ->select('areas.id', 'areas.name', 'areas.description', 'areas.price', 'areas.thumbnail', DB::raw('AVG(rating) as rating'))
+                    ->where('description', 'LIKE', '%'.$request->input('searchArea').'%')
+                    ->groupBy('areas.id', 'areas.name', 'areas.description', 'areas.price', 'areas.thumbnail');
+
         //filter
         $categoryFilter = $request->input('categoryFilter');
 
@@ -33,11 +38,17 @@ class SearchController extends Controller
         $rating = $request->input('ratingFilter');
 
         if ($rating){
-            $areasName = $areasName->where('rating', '>=', $rating);
-            $areasDesc = $areasDesc->where('rating', '>=', $rating);
+            $validAreas = AreaRating::selectRaw('area_id, avg(rating) as rating')->groupBy('area_id')->get();
+            $validAreas = $validAreas->where('rating', '>=', 4);
+            $validAreas = $validAreas->map(function($dt){
+                return $dt->area_id;
+            });
+            $areasName = $areasName->whereIn('areas.id', $validAreas);
+            $areasDesc = $areasDesc->whereIn('areas.id', $validAreas);
         }
 
         $areas = $areasName->union($areasDesc);
+
         $minPrice = $request->input('minPrice');
         $maxPrice = $request->input('maxPrice');
         if ($minPrice){
@@ -81,7 +92,7 @@ class SearchController extends Controller
         $areas->transform(function ($dt) {
             if ($dt->rating == null){
                 $dt->rating = 0;
-            }
+            } else $dt->rating = number_format($dt->rating, 1);
             return $dt;
         });
         $areaTypes = AreaType::all()->sortByDesc('id');
