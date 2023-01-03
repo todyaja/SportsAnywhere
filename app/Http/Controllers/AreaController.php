@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\AreaType;
+use App\Models\AreaPicture;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreAreaRequest;
 use App\Http\Requests\UpdateAreaRequest;
-use App\Models\AreaPicture;
-use App\Models\AreaType;
-use Illuminate\Support\Facades\DB;
 
 class AreaController extends Controller
 {
@@ -60,8 +61,6 @@ class AreaController extends Controller
             'area_thumbnail' => 'required',
         ],$text);
 
-
-
        $latestAreaId = DB::table('areas')->orderByDesc('id')->select('id')->first()->id;
 
        //masukkin thumbnail
@@ -111,11 +110,10 @@ class AreaController extends Controller
      * @return \Illuminate\Http\Response
      */
     //FUNCTION BUAT MUNCULIN AREA Detail
-    public function show(Area $area)
+    public function show(Request $request)
     {
-        //
-
-        return view('area.area_detail');
+        $area = Area::where('id', $request->areaId)->first();
+        return view('area.area_detail', compact('area'));
     }
 
     /**

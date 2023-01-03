@@ -19,4 +19,20 @@ class Area extends Model
         'thumbnail',
         'status',
     ];
+
+    public function areaPictures(){
+        return $this->hasMany(AreaPicture::class);
+    }
+
+    public function bookings(){
+        return $this->hasMany(Booking::class);
+    }
+
+    public function areaType(){
+        return $this->belongsTo(AreaType::class, "area_type", "id");
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class, "created_by", "id");
+    }
 }

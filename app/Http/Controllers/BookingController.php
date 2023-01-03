@@ -18,7 +18,6 @@ class BookingController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // dd($now);
         if ($user->role == 1){
             // Host
             $areas = Area::rightJoin('bookings', 'areas.id', '=', 'bookings.area_id')
@@ -57,6 +56,14 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function areaBookingNeededData(Request $request)
+    {
+        $area = Area::where('id', $request->areaId)->first();
+        $booking = Booking::where('area_id', $request->areaId)->get();
+
+        return view('area.area_booking', compact('area', 'booking'));
+    }
+
     public function create()
     {
         //

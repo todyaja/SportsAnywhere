@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::resource('user', UserController::class);
-Route::resource('area', AreaController::class);
 
 Route::get('/', 'App\Http\Controllers\UserController@home')->name('home');
 Route::get('login', 'App\Http\Controllers\UserController@login')->name('login');
@@ -29,3 +28,6 @@ Route::post('loginprocess', 'App\Http\Controllers\UserController@loginProcess')-
 Route::post('logout', 'App\Http\Controllers\UserController@logout')->name('logout');
 Route::resource('search', SearchController::class);
 Route::resource('bookings', BookingController::class);
+
+Route::get('areaPage/{areaId}', [AreaController::class, 'show']);
+Route::get('/areaBookingPage/{areaId}', [BookingController::class, 'areaBookingNeededData']);
