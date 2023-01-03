@@ -21,6 +21,14 @@ class AreaController extends Controller
         //
     }
 
+    public function myarea()
+    {
+        $data = Area::Where('created_by', auth()->user()->id)->get();
+
+
+        return view('area.myarea', compact(['data']));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -147,8 +155,10 @@ class AreaController extends Controller
      * @param  \App\Models\Area  $area
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Area $area)
+    public function destroy($id)
     {
         //
+        $area = Area::where('id', $id)->first();
+        $area->delete();
     }
 }

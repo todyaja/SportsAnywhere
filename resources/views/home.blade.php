@@ -29,6 +29,6 @@
                 </div>
             @endforeach
         </div>
-        <div class="d-flex justify-content-start my-3"><button class="btn btn-primary">See All</button></div>
+        <div class="d-flex justify-content-start my-3"><a href="/search"><button class="btn btn-primary">See All</button></a></div>
     </div>
 @endsection
