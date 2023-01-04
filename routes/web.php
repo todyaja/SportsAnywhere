@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+ 
 Route::resource('user', UserController::class);
 Route::resource('area', AreaController::class);
 
@@ -25,3 +25,4 @@ Route::get('register', 'App\Http\Controllers\UserController@register')->name('re
 Route::post('registeruser','App\Http\Controllers\UserController@create')->name('registeruser');
 Route::post('loginprocess', 'App\Http\Controllers\UserController@loginProcess')->name('loginprocess');
 Route::post('logout', 'App\Http\Controllers\UserController@logout')->name('logout');
+Route::get('profile', 'App\Http\Controllers\UserController@profile')->name('profile');

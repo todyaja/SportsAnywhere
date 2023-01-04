@@ -39,7 +39,7 @@
                                     style="width: 40px; height: 40px">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/profile') }}">Profile</a></li>
                                 <li><a class="dropdown-item" href="#">My Bookings</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
