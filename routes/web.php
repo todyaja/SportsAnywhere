@@ -31,3 +31,4 @@ Route::resource('bookings', BookingController::class);
 
 Route::get('areaPage/{areaId}', [AreaController::class, 'show']);
 Route::get('/areaBookingPage/{areaId}', [BookingController::class, 'areaBookingNeededData']);
+Route::post('/createBooking', [BookingController::class, 'create']);
