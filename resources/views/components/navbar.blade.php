@@ -14,20 +14,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
-                @auth
-                    @if (auth()->user()->role == 1)
-                        <li class="nav-item">
-                            <a class="nav-link" href="/area/create">Create Sport Area</a>
-                        </li>
-                    @endif
-                @endauth
             </ul>
 
             <div class="d-flex">
 
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn" style="color:aliceblue; background-color: #E7B447"
+                <form class="d-flex" role="search" action="{{ url('search') }}" method="GET">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                        name="searchArea" id="searchArea">
+                    <button class="btn me-3" style="color:aliceblue; background-color: #E7B447"
                         type="submit">Search</button>
                 </form>
                 @auth
@@ -39,8 +33,13 @@
                                     style="width: 40px; height: 40px">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ url('/profile') }}">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">My Bookings</a></li>
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="{{ url('bookings') }}">Bookings</a></li>
+                                @auth
+                                    @if (auth()->user()->role == 1)
+                                        <li><a class="dropdown-item" href="{{ url('myarea') }}">My Area</a></li>
+                                    @endif
+                                @endauth
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>

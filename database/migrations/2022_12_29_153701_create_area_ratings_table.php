@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAreaPicturesTable extends Migration
+class CreateAreaRatingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateAreaPicturesTable extends Migration
      */
     public function up()
     {
-        Schema::create('area_pictures', function (Blueprint $table) {
-            $table->id();
+        Schema::create('area_ratings', function (Blueprint $table) {
+            $table->id('rating_id');
             $table->foreignId('area_id')->references('id')->on('areas')->onDelete('cascade');;
-            $table->string('pictures');
+            $table->foreignId('guest_id')->references('id')->on('users')->onDelete('cascade');;
+            $table->string('review');
+            $table->integer('rating');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateAreaPicturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('area_pictures');
+        Schema::dropIfExists('area_ratings');
     }
 }

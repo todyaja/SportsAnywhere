@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AreaPicture extends Model
+class Booking extends Model
 {
     use HasFactory;
-    public $table = "area_pictures";
-    protected $fillable = [
-        'area_id',
-        'pictures',
-    ];
+    protected $guarded = [];
 
     public function area(){
         return $this->belongsTo(Area::class);
     }
+
+    public function user(){
+        return $this->belongsTo(User::class, "guest_id", "id");
+    }
+
 }

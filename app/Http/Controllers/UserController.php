@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\AreaRating;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,12 +34,14 @@ class UserController extends Controller
     //function buat ke home
     public function home()
     {
-        //
-        $data = Area::orderBy('updated_at', 'desc')->take(20)->get();
-       //dd($data);
+        $data = Area::orderBy('areas.updated_at', 'desc')->take(20)->get();
+        foreach($data as $d){
+            $d->rating = number_format(AreaRating::where('area_id', $d->id)->get()->avg('rating') == null ? 0 : AreaRating::where('area_id', $d->id)->get()->avg('rating'),1);
+        }
 
         return view('home', compact(['data']));
     }
+
     //function buat login
     public function login()
     {
