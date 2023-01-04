@@ -9,9 +9,9 @@ class AreaRating extends Model
 {
     use HasFactory;
     public $table = "area_ratings";
-    
-    public function area(){
-        return $this->belongsTo(Area::class);
+
+    public function booking(){
+        return $this->belongsTo(Booking::class, "booking_id", "booking_id");
     }
 
     public function user(){
