@@ -18,7 +18,7 @@
                 <div class="row d-flex justify-content-start g-0" id="areaList">
                    @foreach ($areas as $d)
                     <div class="col-4">
-                        <a href="{{ url('area/' . $d->id) }}" style="text-decoration: none">
+                        <a href="{{ url('areaPage/' . $d->id) }}" style="text-decoration: none">
                             <div class="card my-2" style="width: 18rem; height: 30rem">
                                 <img src="{{ asset('assets/areas_thumbnail/' . $d->thumbnail) }}"
                                     style="width: 100%; height: 200px" class="card-img-top" alt="...">

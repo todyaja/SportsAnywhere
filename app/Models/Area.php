@@ -21,7 +21,7 @@ class Area extends Model
     ];
 
     public function areaRatings(){
-        return $this->hasMany(AreaRating::class);
+        return $this->hasManyThrough(Booking::class, AreaRating::class);
     }
 
     public function areaPictures(){

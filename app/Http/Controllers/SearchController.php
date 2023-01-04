@@ -18,11 +18,13 @@ class SearchController extends Controller
      */
     public function index(Request $request)
     {
-        $areasName = Area::leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')
+        $areasName = Area::leftJoin('bookings', 'bookings.area_id', '=', 'areas.id')
+                    ->leftJoin('area_ratings', 'bookings.booking_id', '=', 'area_ratings.booking_id')
                     ->select('areas.id', 'areas.name', 'areas.description', 'areas.price', 'areas.thumbnail', DB::raw('AVG(rating) as rating'))
                     ->where('name', 'LIKE', '%'.$request->input('searchArea').'%')
                     ->groupBy('areas.id', 'areas.name', 'areas.description', 'areas.price', 'areas.thumbnail');
-        $areasDesc = Area::leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')
+        $areasDesc = Area::leftJoin('bookings', 'bookings.area_id', '=', 'areas.id')
+                    ->leftJoin('area_ratings', 'bookings.booking_id', '=', 'area_ratings.booking_id')
                     ->select('areas.id', 'areas.name', 'areas.description', 'areas.price', 'areas.thumbnail', DB::raw('AVG(rating) as rating'))
                     ->where('description', 'LIKE', '%'.$request->input('searchArea').'%')
                     ->groupBy('areas.id', 'areas.name', 'areas.description', 'areas.price', 'areas.thumbnail');
@@ -87,7 +89,6 @@ class SearchController extends Controller
                 $areas = $areas->orderBy('name', 'ASC');
             }
         }
-
         $areas = $areas->simplePaginate(6);
         $areas->transform(function ($dt) {
             if ($dt->rating == null){
@@ -95,6 +96,7 @@ class SearchController extends Controller
             } else $dt->rating = number_format($dt->rating, 1);
             return $dt;
         });
+        // dd($areas);
         $areaTypes = AreaType::all()->sortByDesc('id');
         return view('search.index', compact('areas', 'areaTypes'));
     }

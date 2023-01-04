@@ -17,43 +17,22 @@ class AreaRatingSeeder extends Seeder
         $faker = \Faker\Factory::create();
         $items = collect([
                 [
-                    'area_id' => '1',
-                    'guest_id' => 1,
+                    'booking_id' => 1,
                     'review' => $faker->text(),
                     'rating' => $faker->numberBetween(0, 5)
                 ],  [
-                    'area_id' => '1',
-                    'guest_id' => 2,
+                    'booking_id' => 2,
                     'review' => $faker->text(),
                     'rating' => $faker->numberBetween(0, 5)
                 ],[
-                    'area_id' => '1',
-                    'guest_id' => 1,
+                    'booking_id' => 3,
                     'review' => $faker->text(),
                     'rating' => $faker->numberBetween(0, 5)
                 ],[
-                    'area_id' => '2',
-                    'guest_id' => 2,
+                    'booking_id' => 4,
                     'review' => $faker->text(),
                     'rating' => $faker->numberBetween(0, 5)
-                ],  [
-                    'area_id' => '3',
-                    'guest_id' => 1,
-                    'review' => $faker->text(),
-                    'rating' => $faker->numberBetween(0, 5)
-                ],
-                [
-                    'area_id' => '4',
-                    'guest_id' => 1,
-                    'review' => $faker->text(),
-                    'rating' => 4
-                ],
-                [
-                    'area_id' => '4',
-                    'guest_id' => 1,
-                    'review' => $faker->text(),
-                    'rating' => 5
-                ],
+                ]
 
             ])->each(function ($item) {
                 AreaRating::create($item);

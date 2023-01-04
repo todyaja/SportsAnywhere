@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Area;
 use App\Models\AreaRating;
+use App\Models\Booking;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,8 @@ class UserController extends Controller
     {
         $data = Area::orderBy('areas.updated_at', 'desc')->take(20)->get();
         foreach($data as $d){
-            $d->rating = number_format(AreaRating::where('area_id', $d->id)->get()->avg('rating') == null ? 0 : AreaRating::where('area_id', $d->id)->get()->avg('rating'),1);
+            $rating = Booking::leftJoin('area_ratings', 'area_ratings.booking_id', '=', 'bookings.booking_id')->where('area_id', $d->id)->get()->avg('rating');
+            $d->rating = number_format($rating == null ? 0 : $rating, 1);
         }
 
         return view('home', compact(['data']));

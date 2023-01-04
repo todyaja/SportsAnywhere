@@ -15,8 +15,7 @@ class CreateAreaRatingsTable extends Migration
     {
         Schema::create('area_ratings', function (Blueprint $table) {
             $table->id('rating_id');
-            $table->foreignId('area_id')->references('id')->on('areas')->onDelete('cascade');;
-            $table->foreignId('guest_id')->references('id')->on('users')->onDelete('cascade');;
+            $table->foreignId('booking_id')->references('booking_id')->on('bookings')->onDelete('cascade');
             $table->string('review');
             $table->integer('rating');
             $table->timestamps();

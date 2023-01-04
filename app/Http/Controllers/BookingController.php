@@ -23,13 +23,14 @@ class BookingController extends Controller
         if ($user->role == 1){
             // Host
             $areas = Area::rightJoin('bookings', 'areas.id', '=', 'bookings.area_id')
-                ->leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')
-                ->select('areas.*', 'bookings.*', 'area_ratings.rating')
+                ->leftJoin('area_ratings', 'bookings.booking_id', '=', 'area_ratings.booking_id')
+                ->leftJoin('users', 'users.id', '=', 'bookings.guest_id')
+                ->select('areas.*', 'bookings.*', 'area_ratings.rating', 'bookings.guest_id', 'users.username')
                 ->where('created_by', $user->id)->get()->sortBy('start_date');
         } else {
             $areas = Area::rightJoin('bookings', 'areas.id', '=', 'bookings.area_id')
-                ->leftJoin('area_ratings', 'areas.id', '=', 'area_ratings.area_id')
-                ->select('areas.*', 'bookings.*', 'area_ratings.rating')
+                ->leftJoin('area_ratings', 'bookings.booking_id', '=', 'area_ratings.booking_id')
+                ->select('areas.*', 'bookings.*', 'area_ratings.rating', 'bookings.guest_id')
                 ->where('bookings.guest_id', $user->id)->get()->sortBy('start_date');
         }
         $bookings = $areas->mapToGroups(function($item, $key){
@@ -49,7 +50,7 @@ class BookingController extends Controller
 
                 return ['none' => $item];
         });
-
+        // dd($bookings);
         return view('booking.index', compact('bookings'));
     }
 
