@@ -15,7 +15,7 @@ class CreateAreaPicturesTable extends Migration
     {
         Schema::create('area_pictures', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('area_id')->references('id')->on('areas');
+            $table->foreignId('area_id')->references('id')->on('areas')->onDelete('cascade');;
             $table->string('pictures');
             $table->timestamps();
         });

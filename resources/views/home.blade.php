@@ -1,6 +1,19 @@
 @section('title', 'SportsAnywhere')
 @extends('layout.master')
 @section('content')
+    <div style="height: 90%; width: 100%; background:url('{{ asset('assets/home_page_background.jpeg') }}'); height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;"
+        class="d-flex flex-column justify-content-center align-item-center">
+        <div style="height: 100%; width: 100%"
+            class="bg-dark d-flex bg-opacity-50 flex-column justify-content-center align-items-center">
+            <h1 class="text-white pb-5">Sports Area</h1>
+            <h3 class="text-white py-5">for your daily sport needs</h3>
+
+            <a href="/about"><button class="btn btn-warning p-3"><h4>Learn More<h4></button></a>
+        </div>
+    </div>
     <div class="container d-flex flex-column">
         <h3 class="my-5">Sport Areas</h3>
         <div class="row d-flex justify-content-start">
@@ -31,6 +44,7 @@
                 </div>
             @endforeach
         </div>
-        <div class="d-flex justify-content-start my-3"><button class="btn btn-primary">See All</button></div>
+        <div class="d-flex justify-content-start my-3"><a href="/search"><button class="btn btn-primary">More</button></a>
+        </div>
     </div>
 @endsection
