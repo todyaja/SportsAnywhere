@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Booking;
+use DateTime;
 use Carbon\Carbon;
+use App\Models\Booking;
 use Illuminate\Database\Seeder;
 
 class BookingSeeder extends Seeder
@@ -45,6 +46,18 @@ class BookingSeeder extends Seeder
                     'guest_id' => 1,
                     'start_date' => Carbon::yesterday('GMT+7')->addHour(),
                     'end_date' => Carbon::tomorrow('GMT+7'),
+                    'cancelled' => 0
+                ], [
+                    'area_id' => '1',
+                    'guest_id' => 1,
+                    'start_date' => DateTime::createFromFormat('Y-m-d H:i:s', '2023-01-04 10:00:00')->format('Y-m-d H:i:s'),
+                    'end_date' => DateTime::createFromFormat('Y-m-d H:i:s', '2023-01-04 11:00:00')->format('Y-m-d H:i:s'),
+                    'cancelled' => 0
+                ], [
+                    'area_id' => '1',
+                    'guest_id' => 2,
+                    'start_date' => DateTime::createFromFormat('Y-m-d H:i:s', '2023-01-04 13:00:00')->format('Y-m-d H:i:s'),
+                    'end_date' => DateTime::createFromFormat('Y-m-d H:i:s', '2023-01-04 16:00:00')->format('Y-m-d H:i:s'),
                     'cancelled' => 0
                 ],
             ])->each(function ($item) {

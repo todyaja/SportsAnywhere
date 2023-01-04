@@ -20,6 +20,10 @@ class Area extends Model
         'status',
     ];
 
+    public function areaRatings(){
+        return $this->hasMany(AreaRating::class);
+    }
+
     public function areaPictures(){
         return $this->hasMany(AreaPicture::class);
     }
