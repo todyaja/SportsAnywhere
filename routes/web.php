@@ -32,3 +32,4 @@ Route::resource('bookings', BookingController::class);
 Route::get('profile', 'App\Http\Controllers\UserController@profile')->name('profile');
 Route::get('areaPage/{areaId}', [AreaController::class, 'show']);
 Route::get('/areaBookingPage/{areaId}', [BookingController::class, 'areaBookingNeededData']);
+Route::post('profile', 'App\Http\Controllers\UserController@update')->name('profile');

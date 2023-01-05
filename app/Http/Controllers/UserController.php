@@ -7,6 +7,9 @@ use App\Models\AreaRating;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+
+// use alert;
 
 
 class UserController extends Controller
@@ -162,7 +165,28 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        // dd('cel k');
+        // dd($request);
+        $this->validate($request,[
+            'username' => 'required|min:5',
+            'phone_number' => 'required|min:6|max:15',
+        ]);
+
+        $userInfo = User::where('id', '=', auth()->user()->id)->get()->first();
+        $userInfo->username = $request->username;
+        $userInfo->phone_number = $request->phone_number;
+
+        if($request->hasfile('profile_image'))
+        {
+            $file = $request->file('profile_image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extension;
+            $file->move('assets/profile_pictures/', $filename);
+            $userInfo->profile_picture = $filename;
+        }
+        $userInfo->update();
+
+        return view('profile.profile', compact(['userInfo']));
     }
 
     /**
