@@ -19,7 +19,7 @@
                                 <p>{{ $d->description }}</p>
                                 <p class="text-secondary">{{ $d->address }}</p>
                                 <div class="flex-row">
-                                    <a href="{{ url('area/' . $d->id) }}" style="text-decoration: none"><button
+                                    <a href="{{ url('areaPage/' . $d->id) }}" style="text-decoration: none"><button
                                             class="btn btn-warning">Detail</button></a>
                                     <button data-bs-toggle="modal" data-bs-target={{ '#deleteAreaForm' . $d->id }}
                                         class="btn btn-danger">Delete</button>

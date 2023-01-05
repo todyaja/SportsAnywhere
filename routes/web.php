@@ -29,7 +29,9 @@ Route::post('logout', 'App\Http\Controllers\UserController@logout')->name('logou
 Route::get('/myarea', 'App\Http\Controllers\AreaController@myarea')->name('myarea');
 Route::resource('search', SearchController::class);
 Route::resource('bookings', BookingController::class);
-
+Route::resource('area', AreaController::class);
 Route::get('areaPage/{areaId}', [AreaController::class, 'show']);
 Route::get('/areaBookingPage/{areaId}', [BookingController::class, 'areaBookingNeededData']);
 Route::post('/createBooking', [BookingController::class, 'create']);
+Route::get('/createRating/{bookingId}', [BookingController::class, 'giveRating']);
+Route::post('/postRating', [BookingController::class, 'postRating']);

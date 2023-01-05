@@ -124,7 +124,7 @@ class AreaController extends Controller
     {
         $area = Area::where('id', $request->areaId)->first();
         $ratings = AreaRating::join('bookings', 'bookings.booking_id', '=', 'area_ratings.booking_id')
-                    ->where('area_id', $request->areaId)->get();
+                    ->where('bookings.area_id', $request->areaId)->get();
         $area->areaRatings = $ratings;
 
         return view('area.area_detail', compact('area'));
