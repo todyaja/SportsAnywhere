@@ -155,7 +155,7 @@
                         {{ 'Username: ' . $area->user->username }} </br>{{ 'Phone: ' . $area->user->phone_number }}</br>
                         <div class="container mt-3 d-flex justify-content-start">
                             <a href="https://wa.me/62{{ substr($area->user->phone_number, 1) }}"
-                                class="btn btn-outline-success me-2 mb-2 ">More Info</a>
+                              target="_blank"  class="btn btn-outline-success me-2 mb-2 ">More Info</a>
                         </div>
                     </div>
                 </div>
@@ -187,6 +187,9 @@
                                     <p class="card-text">
                                         {{ $r->review }}
                                     </p>
+                                </div>
+                                <div class="card-footer border-0 w-100 d-flex justify-content-end">
+                                    <div class="text-secondary">{{date_format($r->created_at,"d-m-Y")}}</div>
                                 </div>
                             </div>
                         @empty

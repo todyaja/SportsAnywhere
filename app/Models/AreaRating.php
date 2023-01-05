@@ -10,6 +10,12 @@ class AreaRating extends Model
     use HasFactory;
     public $table = "area_ratings";
 
+    protected $fillable = [
+        'rating',
+        'review',
+        'booking_id'
+    ];
+
     public function booking(){
         return $this->belongsTo(Booking::class, "booking_id", "booking_id");
     }

@@ -15,7 +15,8 @@
                     <div class="accordion-body d-flex flex-row overflow-auto w-100">
                         @if ($bookings->get('ongoing'))
                             @foreach ($bookings->get('ongoing') as $ongoing)
-                                <a href="{{ url('areaPage/' . $ongoing->area_id) }}" style="text-decoration: none" class="me-2">
+                                <a href="{{ url('areaPage/' . $ongoing->area_id) }}" style="text-decoration: none"
+                                    class="me-2">
                                     <div class="card my-2" style="width: 18rem;">
                                         <img class="card-img-top" style="width: 100%; height: 200px" class="card-img-top"
                                             src="{{ asset('assets/areas_thumbnail/' . $ongoing->thumbnail) }}"
@@ -39,7 +40,7 @@
 
                                                 @if (auth()->user()->role == 1)
                                                     <p class="text-secondary">
-                                                        Booked by: {{$ongoing->username}}
+                                                        Booked by: {{ $ongoing->username }}
                                                     </p>
                                                 @endif
 
@@ -68,7 +69,7 @@
                     <div class="accordion-body d-flex flex-row overflow-auto w-100">
                         @if ($bookings->get('upcoming'))
                             @foreach ($bookings->get('upcoming') as $upcoming)
-                                <div class="card my-2 me-2 pb-3" style="width: 18rem;" >
+                                <div class="card my-2 me-2 pb-3" style="width: 18rem;">
                                     <a href="{{ url('areaPage/' . $upcoming->area_id) }}" style="text-decoration: none">
                                         <img class="card-img-top" style="width: 100%; height: 200px" class="card-img-top"
                                             src="{{ asset('assets/areas_thumbnail/' . $upcoming->thumbnail) }}"
@@ -91,7 +92,7 @@
                                                 </p>
                                                 @if (auth()->user()->role == 1)
                                                     <p class="text-secondary">
-                                                        Booked by: {{$ongoing->username}}
+                                                        Booked by: {{ $ongoing->username }}
                                                     </p>
                                                 @endif
                                             </div>
@@ -118,7 +119,7 @@
                         Completed
                     </button>
                 </h4>
-                <div class="accordion-collapse collapse" id="collapseCompleted"aria-labelledby="headingCompleted">
+                <div class="accordion-collapse collapse show" id="collapseCompleted"aria-labelledby="headingCompleted">
                     <div class="accordion-body d-flex flex-row overflow-auto w-100">
                         @if ($bookings->get('completed'))
                             @foreach ($bookings->get('completed') as $completed)
@@ -145,18 +146,20 @@
                                                 </p>
                                                 @if (auth()->user()->role == 1)
                                                     <p class="text-secondary">
-                                                        Booked by: {{$ongoing->username}}
+                                                        Booked by: {{ $ongoing->username }}
                                                     </p>
                                                 @endif
                                             </div>
                                         </div>
                                     </a>
-                                    @if (auth()->user()->role == 0 && !$completed->rating)
-                                        <a data-bs-toggle="modal" data-bs-target="#deleteBooking" role="button"
-                                        class="btn btn-danger rounded align-self-end cancel-booking-button me-3"
-                                        data-status-link=""
-                                        style="margin-top: -20px">Rate</a>
-                                    @endif
+                                    <div class="d-flex justify-content-center w-100 px-2">
+                                        @if (auth()->user()->role == 0 && !$completed->rating)
+                                            <a class="w-100" href="{{ url('createRating/' . $completed->booking_id) }}">
+                                                <button class="btn btn-warning w-100">{{ 'Rate' }} </button>
+                                            </a>
+                                        @endif
+                                    </div>
+
 
                                 </div>
                             @endforeach
@@ -179,7 +182,8 @@
                     <div class="accordion-body d-flex flex-row overflow-auto w-100">
                         @if ($bookings->get('cancelled'))
                             @foreach ($bookings->get('cancelled') as $cancelled)
-                                <a href="{{ url('areaPage/' . $cancelled->area_id) }}" style="text-decoration: none" class="me-3">
+                                <a href="{{ url('areaPage/' . $cancelled->area_id) }}" style="text-decoration: none"
+                                    class="me-3">
                                     <div class="card my-2" style="width: 18rem;">
                                         <img class="card-img-top" style="width: 100%; height: 200px" class="card-img-top"
                                             src="{{ asset('assets/areas_thumbnail/' . $cancelled->thumbnail) }}"
@@ -202,7 +206,7 @@
                                                 </p>
                                                 @if (auth()->user()->role == 1)
                                                     <p class="text-secondary">
-                                                        Booked by: {{$ongoing->username}}
+                                                        Booked by: {{ $ongoing->username }}
                                                     </p>
                                                 @endif
 
