@@ -15,27 +15,35 @@
                     <div class="accordion-body d-flex flex-row overflow-auto w-100">
                         @if ($bookings->get('ongoing'))
                             @foreach ($bookings->get('ongoing') as $ongoing)
-                                <a href="{{ url('') }}" style="text-decoration: none" class="me-2">
-                                    <div class="card my-2" style="width: 18rem; height: 28rem">
+                                <a href="{{ url('areaPage/' . $ongoing->area_id) }}" style="text-decoration: none"
+                                    class="me-2">
+                                    <div class="card my-2" style="width: 18rem;">
                                         <img class="card-img-top" style="width: 100%; height: 200px" class="card-img-top"
                                             src="{{ asset('assets/areas_thumbnail/' . $ongoing->thumbnail) }}"
                                             alt="Card image cap">
                                         <div class="card-body">
                                             <h6 class="card-text">{{ Str::limit($ongoing->name, 20) }}</h6>
                                             <h6 class="card-text text-secondary my-2">
-                                                {{ Str::limit($ongoing->address, 50) }}</h6>
+                                                {{ Str::limit($ongoing->address, 40) }}</h6>
                                             <div class="d-flex justify-content-center align-items-center flex-column mt-4">
-                                                <p class="text-info border py-1 px-2 rounded-3">
-                                                    {{ date('D, d M Y H:i e', strtotime($ongoing->start_date)) }}
+                                                <p class="text-info border py-1 px-2 rounded-3 fw-light">
+                                                    {{ date('D, d M Y H:i', strtotime($ongoing->start_date)) }}
                                                 </p>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd"
                                                         d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                                 </svg>
-                                                <p class="text-info border py-1 px-2 rounded-3 mt-2">
-                                                    {{ date('D, d M Y H:i e', strtotime($ongoing->end_date)) }}
+                                                <p class="text-info border py-1 px-2 rounded-3 mt-2 fw-light">
+                                                    {{ date('D, d M Y H:i', strtotime($ongoing->end_date)) }}
                                                 </p>
+
+                                                @if (auth()->user()->role == 1)
+                                                    <p class="text-secondary">
+                                                        Booked by: {{ $ongoing->username }}
+                                                    </p>
+                                                @endif
+
                                             </div>
                                         </div>
                                     </div>
@@ -61,27 +69,32 @@
                     <div class="accordion-body d-flex flex-row overflow-auto w-100">
                         @if ($bookings->get('upcoming'))
                             @foreach ($bookings->get('upcoming') as $upcoming)
-                                <div class="card my-2" style="width: 18rem; height: 30rem" class="me-2">
-                                    <a href="{{ url('') }}" style="text-decoration: none">
+                                <div class="card my-2 me-2 pb-3" style="width: 18rem;">
+                                    <a href="{{ url('areaPage/' . $upcoming->area_id) }}" style="text-decoration: none">
                                         <img class="card-img-top" style="width: 100%; height: 200px" class="card-img-top"
                                             src="{{ asset('assets/areas_thumbnail/' . $upcoming->thumbnail) }}"
                                             alt="Card image cap">
                                         <div class="card-body">
                                             <h6 class="card-text">{{ Str::limit($upcoming->name, 20) }}</h6>
                                             <h6 class="card-text text-secondary my-2">
-                                                {{ Str::limit($upcoming->address, 50) }}</h6>
+                                                {{ Str::limit($upcoming->address, 40) }}</h6>
                                             <div class="d-flex justify-content-center align-items-center flex-column mt-4">
-                                                <p class="text-info border py-1 px-2 rounded-3">
-                                                    {{ date('D, d M Y H:i e', strtotime($upcoming->start_date)) }}
+                                                <p class="text-info border py-1 px-2 rounded-3 fw-light">
+                                                    {{ date('D, d M Y H:i', strtotime($upcoming->start_date)) }}
                                                 </p>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd"
                                                         d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                                 </svg>
-                                                <p class="text-info border py-1 px-2 rounded-3 mt-2">
-                                                    {{ date('D, d M Y H:i e', strtotime($upcoming->end_date)) }}
+                                                <p class="text-info border py-1 px-2 rounded-3 mt-2 fw-light">
+                                                    {{ date('D, d M Y H:i', strtotime($upcoming->end_date)) }}
                                                 </p>
+                                                @if (auth()->user()->role == 1)
+                                                    <p class="text-secondary">
+                                                        Booked by: {{ $ongoing->username }}
+                                                    </p>
+                                                @endif
                                             </div>
                                         </div>
                                     </a>
@@ -106,35 +119,49 @@
                         Completed
                     </button>
                 </h4>
-                <div class="accordion-collapse collapse" id="collapseCompleted"aria-labelledby="headingCompleted">
+                <div class="accordion-collapse collapse show" id="collapseCompleted"aria-labelledby="headingCompleted">
                     <div class="accordion-body d-flex flex-row overflow-auto w-100">
                         @if ($bookings->get('completed'))
                             @foreach ($bookings->get('completed') as $completed)
-                                <a href="{{ url('') }}" style="text-decoration: none" class="me-3">
-                                    <div class="card my-2" style="width: 18rem; height: 28rem">
+                                <div class="card my-2 me-2 pb-3" style="width: 18rem;">
+                                    <a href="{{ url('areaPage/' . $completed->area_id) }}" style="text-decoration: none">
                                         <img class="card-img-top" style="width: 100%; height: 200px" class="card-img-top"
                                             src="{{ asset('assets/areas_thumbnail/' . $completed->thumbnail) }}"
                                             alt="Card image cap">
                                         <div class="card-body">
                                             <h6 class="card-text">{{ Str::limit($completed->name, 20) }}</h6>
                                             <h6 class="card-text text-secondary my-2">
-                                                {{ Str::limit($completed->address, 50) }}</h6>
+                                                {{ Str::limit($completed->address, 40) }}</h6>
                                             <div class="d-flex justify-content-center align-items-center flex-column mt-4">
-                                                <p class="text-info border py-1 px-2 rounded-3">
-                                                    {{ date('D, d M Y H:i e', strtotime($completed->start_date)) }}
+                                                <p class="text-info border py-1 px-2 rounded-3 fw-light">
+                                                    {{ date('D, d M Y H:i', strtotime($completed->start_date)) }}
                                                 </p>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd"
                                                         d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                                 </svg>
-                                                <p class="text-info border py-1 px-2 rounded-3 mt-2">
-                                                    {{ date('D, d M Y H:i e', strtotime($completed->end_date)) }}
+                                                <p class="text-info border py-1 px-2 rounded-3 mt-2 fw-light">
+                                                    {{ date('D, d M Y H:i', strtotime($completed->end_date)) }}
                                                 </p>
+                                                @if (auth()->user()->role == 1)
+                                                    <p class="text-secondary">
+                                                        Booked by: {{ $ongoing->username }}
+                                                    </p>
+                                                @endif
                                             </div>
                                         </div>
+                                    </a>
+                                    <div class="d-flex justify-content-center w-100 px-2">
+                                        @if (auth()->user()->role == 0 && !$completed->rating)
+                                            <a class="w-100" href="{{ url('createRating/' . $completed->booking_id) }}">
+                                                <button class="btn btn-warning w-100">{{ 'Rate' }} </button>
+                                            </a>
+                                        @endif
                                     </div>
-                                </a>
+
+
+                                </div>
                             @endforeach
                         @else
                             <p class='text-secondary mt-3'>There are no completed bookings</p>
@@ -155,27 +182,33 @@
                     <div class="accordion-body d-flex flex-row overflow-auto w-100">
                         @if ($bookings->get('cancelled'))
                             @foreach ($bookings->get('cancelled') as $cancelled)
-                                <a href="{{ url('') }}" style="text-decoration: none" class="me-3">
-                                    <div class="card my-2" style="width: 18rem; height: 30rem">
+                                <a href="{{ url('areaPage/' . $cancelled->area_id) }}" style="text-decoration: none"
+                                    class="me-3">
+                                    <div class="card my-2" style="width: 18rem;">
                                         <img class="card-img-top" style="width: 100%; height: 200px" class="card-img-top"
                                             src="{{ asset('assets/areas_thumbnail/' . $cancelled->thumbnail) }}"
                                             alt="Card image cap">
                                         <div class="card-body">
                                             <h6 class="card-text">{{ Str::limit($cancelled->name, 20) }}</h6>
                                             <h6 class="card-text text-secondary my-2">
-                                                {{ Str::limit($cancelled->address, 50) }}</h6>
+                                                {{ Str::limit($cancelled->address, 40) }}</h6>
                                             <div class="d-flex justify-content-center align-items-center flex-column mt-4">
-                                                <p class="text-info border py-1 px-2 rounded-3">
-                                                    {{ date('D, d M Y H:i e', strtotime($cancelled->start_date)) }}
+                                                <p class="text-info border py-1 px-2 rounded-3 fw-light">
+                                                    {{ date('D, d M Y H:i', strtotime($cancelled->start_date)) }}
                                                 </p>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd"
                                                         d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                                 </svg>
-                                                <p class="text-info border py-1 px-2 rounded-3 mt-2">
-                                                    {{ date('D, d M Y H:i e', strtotime($cancelled->end_date)) }}
+                                                <p class="text-info border py-1 px-2 rounded-3 mt-2 fw-light">
+                                                    {{ date('D, d M Y H:i', strtotime($cancelled->end_date)) }}
                                                 </p>
+                                                @if (auth()->user()->role == 1)
+                                                    <p class="text-secondary">
+                                                        Booked by: {{ $ongoing->username }}
+                                                    </p>
+                                                @endif
 
                                                 <p class="text-white bg-danger border py-1 w-100 text-center rounded-3">
                                                     Cancelled</p>

@@ -10,6 +10,10 @@ class Booking extends Model
     use HasFactory;
     protected $guarded = [];
 
+    public function areaRatings(){
+        return $this->hasMany(AreaRating::class);
+    }
+
     public function area(){
         return $this->belongsTo(Area::class);
     }

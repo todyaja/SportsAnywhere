@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAreaRequest;
 use App\Http\Requests\UpdateAreaRequest;
+use App\Models\AreaRating;
+use App\Models\Booking;
 
 class AreaController extends Controller
 {
@@ -121,6 +123,10 @@ class AreaController extends Controller
     public function show(Request $request)
     {
         $area = Area::where('id', $request->areaId)->first();
+        $ratings = AreaRating::join('bookings', 'bookings.booking_id', '=', 'area_ratings.booking_id')
+                    ->where('bookings.area_id', $request->areaId)->get();
+        $area->areaRatings = $ratings;
+
         return view('area.area_detail', compact('area'));
     }
 

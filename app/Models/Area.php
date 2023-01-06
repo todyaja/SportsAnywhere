@@ -20,6 +20,10 @@ class Area extends Model
         'status',
     ];
 
+    public function areaRatings(){
+        return $this->hasManyThrough(Booking::class, AreaRating::class);
+    }
+
     public function areaPictures(){
         return $this->hasMany(AreaPicture::class);
     }
