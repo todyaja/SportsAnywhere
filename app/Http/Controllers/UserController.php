@@ -8,6 +8,10 @@ use App\Models\Booking;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+
+// use alert;
+
 
 class UserController extends Controller
 {
@@ -19,9 +23,16 @@ class UserController extends Controller
     public function index()
     {
         //
+        // $userInfo = User::where('id', Auth::user()->id)->first();
+        // $userShow = User::where('id', '=', $user->id)->get()->first();
+        // return view('profile.index', [
+        //     'userInfo' => $user
+        // ]);
 
+        // return view('profile.index', compact('user'));
 
         return view('home');
+        // return view('profile.profile');
     }
 
     //function buat ke home
@@ -49,6 +60,17 @@ class UserController extends Controller
         //
 
         return view('register');
+    }
+
+    public function profile()
+    {
+        // dd("halo");
+
+        $userInfo = User::where('id', '=', auth()->user()->id)->get()->first();
+        // $userShow = User::where('id', '=', $user->id)->auth()->user()->id;
+        return view('profile.profile', compact(['userInfo']));
+
+        // return view('profile.profile');
     }
 
     /**
@@ -110,8 +132,20 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        // dd("halo");
+        // auth()->user()->id
+        // $userShow = User::where('id', '=', $user->auth()->user()->id)->get()->first();
+        // // $userShow = User::where('id', '=', $user->id)->auth()->user()->id;
+        // return view('profile', [
+        //     'userInfo' => $userShow
+        // ]);
+        // return User::all();
+        // auth()->user()->id;
+        // dd($userShow);
+
+        return view('profile');
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -133,7 +167,28 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        // dd('cel k');
+        // dd($request);
+        $this->validate($request,[
+            'username' => 'required|min:5',
+            'phone_number' => 'required|min:6|max:15',
+        ]);
+
+        $userInfo = User::where('id', '=', auth()->user()->id)->get()->first();
+        $userInfo->username = $request->username;
+        $userInfo->phone_number = $request->phone_number;
+
+        if($request->hasfile('profile_image'))
+        {
+            $file = $request->file('profile_image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extension;
+            $file->move('assets/profile_pictures/', $filename);
+            $userInfo->profile_picture = $filename;
+        }
+        $userInfo->update();
+
+        return view('profile.profile', compact(['userInfo']));
     }
 
     /**

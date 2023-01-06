@@ -29,11 +29,11 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle w-100" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="{{ asset('assets/profile_pictures/guest.jpg') }}" class="rounded-circle"
+                                <img src="{{ asset('assets/profile_pictures/'.auth()->user()->profile_picture) }}" class="rounded-circle"
                                     style="width: 40px; height: 40px">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="/profile">Profile</a></li>
                                 <li><a class="dropdown-item" href="{{ url('bookings') }}">Bookings</a></li>
                                 @auth
                                     @if (auth()->user()->role == 1)
