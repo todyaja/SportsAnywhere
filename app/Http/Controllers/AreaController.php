@@ -124,7 +124,7 @@ class AreaController extends Controller
     {
         $area = Area::where('id', $request->areaId)->first();
         $ratings = AreaRating::join('bookings', 'bookings.booking_id', '=', 'area_ratings.booking_id')
-                    ->where('bookings.area_id', $request->areaId)->get();
+            ->where('bookings.area_id', $request->areaId)->get();
         $area->areaRatings = $ratings;
 
         return view('area.area_detail', compact('area'));
@@ -164,8 +164,14 @@ class AreaController extends Controller
         //
         $area = Area::where('id', $id)->first();
 
+        $areaPictures = AreaPicture::where('area_id', $area->id);
+        unlink('assets/areas_thumbnail/' . $area->thumbnail);
+        foreach ($areaPictures as $a) {
+            unlink('assets/area_picture/' . $a->pictures);
+        }
+
+        $area->delete();
         return redirect('/')
             ->with('alert', $area->name . ' has been deleted successfully!');
-        $area->delete();
     }
 }

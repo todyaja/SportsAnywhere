@@ -20,35 +20,42 @@ class UserSeeder extends Seeder
                 'email' => 'user1@gmail.com',
                 'username' => 'user1@gmail.com',
                 'password' => bcrypt('password'),
-                'profile_picture' => 'Test',
-                'phone_number' => 'Test',
+                'profile_picture' => 'guest.jpg',
+                'phone_number' => '08118423004',
                 'role' => 0
             ],  [
                 'email' => 'user2@gmail.com',
                 'username' => 'user2@gmail.com',
                 'password' => bcrypt('password'),
-                'profile_picture' => 'Test',
-                'phone_number' => 'Test',
+                'profile_picture' => 'guest.jpg',
+                'phone_number' => '08118423004',
                 'role' => 0
             ],  [
                 'email' => 'host1@gmail.com',
                 'username' => 'host1@gmail.com',
                 'password' => bcrypt('password'),
-                'profile_picture' => 'Test',
-                'phone_number' => 'Test',
+                'profile_picture' => 'guest.jpg',
+                'phone_number' => '08118423004',
                 'role' => 1
             ],
             [
                 'email' => 'host2@gmail.com',
                 'username' => 'host2@gmail.com',
                 'password' => bcrypt('password'),
-                'profile_picture' => 'Test',
-                'phone_number' => 'Test',
+                'profile_picture' => 'guest.jpg',
+                'phone_number' => '08118423004',
                 'role' => 1
+            ], [
+                'email' => 'admin@gmail.com',
+                'username' => 'host2@gmail.com',
+                'password' => bcrypt('password'),
+                'profile_picture' => 'guest.jpg',
+                'phone_number' => '08118423004',
+                'role' => 2
             ],
 
 
-        ])->each(function ($item){
+        ])->each(function ($item) {
             User::create($item);
         });
     }

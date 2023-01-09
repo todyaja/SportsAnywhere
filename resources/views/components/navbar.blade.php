@@ -14,6 +14,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
+                @auth
+                    @if (auth()->user()->role == '2')
+                        <li class="nav-item">
+                            <a class="nav-link" href="/manageUser">Manage User</a>
+                        </li>
+                    @endif
+                @endauth
+
             </ul>
 
             <div class="d-flex">
@@ -29,8 +37,8 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle w-100" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="{{ asset('assets/profile_pictures/'.auth()->user()->profile_picture) }}" class="rounded-circle"
-                                    style="width: 40px; height: 40px">
+                                <img src="{{ asset('assets/profile_pictures/' . auth()->user()->profile_picture) }}"
+                                    class="rounded-circle" style="width: 40px; height: 40px">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/profile">Profile</a></li>
@@ -39,6 +47,7 @@
                                     @if (auth()->user()->role == 1)
                                         <li><a class="dropdown-item" href="{{ url('myarea') }}">My Area</a></li>
                                     @endif
+
                                 @endauth
                                 <li>
                                     <hr class="dropdown-divider">
