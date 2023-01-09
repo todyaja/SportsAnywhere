@@ -15,7 +15,7 @@
                     <h4>Learn More<h4>
                 </button></a>
         </div>
-    </div> 
+    </div>
     <div class="container d-flex flex-column">
         <h3 class="my-5">Sport Areas</h3>
         <div class="row d-flex justify-content-start">

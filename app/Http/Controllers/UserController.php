@@ -22,24 +22,15 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-        // $userInfo = User::where('id', Auth::user()->id)->first();
-        // $userShow = User::where('id', '=', $user->id)->get()->first();
-        // return view('profile.index', [
-        //     'userInfo' => $user
-        // ]);
-
-        // return view('profile.index', compact('user'));
 
         return view('home');
-        // return view('profile.profile');
     }
 
     //function buat ke home
     public function home()
     {
         $data = Area::orderBy('areas.updated_at', 'desc')->take(20)->get();
-        foreach($data as $d){
+        foreach ($data as $d) {
             $rating = Booking::leftJoin('area_ratings', 'area_ratings.booking_id', '=', 'bookings.booking_id')->where('area_id', $d->id)->get()->avg('rating');
             $d->rating = number_format($rating == null ? 0 : $rating, 1);
         }
@@ -80,7 +71,7 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-       $this->validate($request,[
+        $this->validate($request, [
             'role' => 'required',
             'username' => 'required|min:5',
             'email' => 'required|unique:users,email',
@@ -99,13 +90,11 @@ class UserController extends Controller
         ]);
 
         return redirect('/login');
-
     }
 
     public function loginProcess(Request $request)
     {
-        if(Auth::attempt($request->only('email', 'password')))
-        {
+        if (Auth::attempt($request->only('email', 'password'))) {
             return redirect('/');
         }
         return back()->withErrors([
@@ -132,16 +121,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        // dd("halo");
-        // auth()->user()->id
-        // $userShow = User::where('id', '=', $user->auth()->user()->id)->get()->first();
-        // // $userShow = User::where('id', '=', $user->id)->auth()->user()->id;
-        // return view('profile', [
-        //     'userInfo' => $userShow
-        // ]);
-        // return User::all();
-        // auth()->user()->id;
-        // dd($userShow);
 
         return view('profile');
     }
@@ -167,9 +146,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        // dd('cel k');
-        // dd($request);
-        $this->validate($request,[
+        $this->validate($request, [
             'username' => 'required|min:5',
             'phone_number' => 'required|min:6|max:15',
         ]);
@@ -178,13 +155,16 @@ class UserController extends Controller
         $userInfo->username = $request->username;
         $userInfo->phone_number = $request->phone_number;
 
-        if($request->hasfile('profile_image'))
-        {
+        if ($request->hasfile('profile_image')) {
+            if($userInfo->profile_picture != "guest.jpg"){
+                unlink('assets/profile_pictures/'.$userInfo->profile_picture);
+            }
             $file = $request->file('profile_image');
             $extension = $file->getClientOriginalExtension();
-            $filename = time().'.'.$extension;
+            $filename = time() . '.' . $extension;
             $file->move('assets/profile_pictures/', $filename);
             $userInfo->profile_picture = $filename;
+
         }
         $userInfo->update();
 
@@ -197,12 +177,27 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
         //
+        $user = User::where('id', $id)->first();
+        if($user->profile_picture != "guest.jpg"){
+            unlink('assets/profile_pictures/'.$user->profile_picture);
+        }
+
+        $user->delete();
+        return redirect('/')
+            ->with('alert', $user->email . ' has been deleted successfully!');
     }
 
-    public function logout(Request $request){
+    public function manageUser()
+    {
+        $data = User::where('role', '!=', '2')->get();
+        return view('admin.manage_user', compact(['data']));
+    }
+
+    public function logout(Request $request)
+    {
         Auth::logout();
 
         $request->session()->invalidate();

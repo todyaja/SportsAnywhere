@@ -15,7 +15,7 @@ class CreateAreasTable extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('created_by')->references('id')->on('users');
+            $table->foreignId('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->string('name');
             $table->foreignId('area_type')->references('id')->on('area_types');
             $table->string('description');
