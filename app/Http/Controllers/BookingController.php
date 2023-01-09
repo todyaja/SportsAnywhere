@@ -35,14 +35,14 @@ class BookingController extends Controller
                 ->where('bookings.guest_id', $user->id)->get()->sortBy('start_date');
         }
         $bookings = $areas->mapToGroups(function ($item, $key) {
-            $now = Carbon::now()->toDateTimeString();
+            $now = Carbon::now('GMT+7')->toDateTimeString();
             // dd($now);
             if ($item->cancelled == 0) {
-                if ($item->end_date <= $now) {
-                    return ['completed' => $item];
-                }
                 if ($now >= $item->start_date && $now < $item->end_date) {
                     return ['ongoing' => $item];
+                }
+                if ($item->end_date <= $now) {
+                    return ['completed' => $item];
                 }
                 if ($now < $item->start_date) {
                     return ['upcoming' => $item];

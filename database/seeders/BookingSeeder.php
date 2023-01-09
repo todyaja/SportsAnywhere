@@ -17,49 +17,100 @@ class BookingSeeder extends Seeder
     public function run()
     {
         $items = collect([
+
+                //ongoing
                 [
                     'area_id' => '1',
                     'guest_id' => 1,
-                    'start_date' => Carbon::yesterday(),
-                    'end_date' => Carbon::yesterday()->addHour(),
+                    'start_date' => Carbon::now('GMT+7')->startOfDay()->addHour('9'),
+                    'end_date' => Carbon::now('GMT+7')->startOfDay()->addHour('14'),
                     'cancelled' => 0,
-                ],  [
-                    'area_id' => '4',
-                    'guest_id' => 2,
-                    'start_date' => Carbon::yesterday(),
-                    'end_date' => Carbon::yesterday()->addHour(),
-                    'cancelled' => 0,
-                ],  [
-                    'area_id' => '3',
-                    'guest_id' => 2,
-                    'start_date' => Carbon::now()->addMonth(),
-                    'end_date' => Carbon::now()->addMonth()->addHour(),
-                     'cancelled' => 0
-                ],  [
+                ],
+                [
                     'area_id' => '2',
                     'guest_id' => 1,
-                    'start_date' => Carbon::yesterday()->addHour(),
-                    'end_date' => Carbon::yesterday()->addHours('2'),
-                    'cancelled' => 0
-                ], [
-                    'area_id' => '2',
-                    'guest_id' => 1,
-                    'start_date' => Carbon::yesterday('GMT+7')->addHour(),
-                    'end_date' => Carbon::tomorrow('GMT+7'),
-                    'cancelled' => 0
-                ], [
-                    'area_id' => '1',
-                    'guest_id' => 1,
-                    'start_date' => DateTime::createFromFormat('Y-m-d H:i:s', '2023-01-04 10:00:00')->format('Y-m-d H:i:s'),
-                    'end_date' => DateTime::createFromFormat('Y-m-d H:i:s', '2023-01-04 11:00:00')->format('Y-m-d H:i:s'),
-                    'cancelled' => 0
-                ], [
-                    'area_id' => '1',
-                    'guest_id' => 2,
-                    'start_date' => DateTime::createFromFormat('Y-m-d H:i:s', '2023-01-04 13:00:00')->format('Y-m-d H:i:s'),
-                    'end_date' => DateTime::createFromFormat('Y-m-d H:i:s', '2023-01-04 16:00:00')->format('Y-m-d H:i:s'),
+                    'start_date' => Carbon::now('GMT+7')->startOfDay()->addHour('15'),
+                    'end_date' => Carbon::now('GMT+7')->startOfDay()->addHour('18'),
                     'cancelled' => 0
                 ],
+                [
+                    'area_id' => '3',
+                    'guest_id' => 1,
+                    'start_date' => Carbon::now('GMT+7')->startOfDay()->addHour('9'),
+                    'end_date' => Carbon::now('GMT+7')->startOfDay()->addHour('18'),
+                    'cancelled' => 0
+                ],
+
+                //upcoming
+                [
+                    'area_id' => '4',
+                    'guest_id' => 1,
+                    'start_date' => Carbon::tomorrow('GMT+7')->addHour('9'),
+                    'end_date' => Carbon::tomorrow('GMT+7')->addHour('11'),
+                    'cancelled' => 0
+                ],
+                [
+                    'area_id' => '5',
+                    'guest_id' => 1,
+                    'start_date' => Carbon::tomorrow('GMT+7')->addHour('12'),
+                    'end_date' => Carbon::tomorrow('GMT+7')->addHour('14'),
+                    'cancelled' => 0
+                ],
+                [
+                    'area_id' => '6',
+                    'guest_id' => 1,
+                    'start_date' => Carbon::tomorrow('GMT+7')->addHour('15'),
+                    'end_date' => Carbon::tomorrow('GMT+7')->addHour('17'),
+                    'cancelled' => 0
+                ],
+
+                //completed
+                [
+                    'area_id' => '7',
+                    'guest_id' => 1,
+                    'start_date' => Carbon::yesterday('GMT+7'),
+                    'end_date' => Carbon::yesterday('GMT+7')->addHour('2'),
+                    'cancelled' => 0
+                ],
+                [
+                    'area_id' => '8',
+                    'guest_id' => 1,
+                    'start_date' => Carbon::yesterday('GMT+7')->addHour('3'),
+                    'end_date' => Carbon::yesterday('GMT+7')->addHour('5'),
+                    'cancelled' => 0
+                ],
+                [
+                    'area_id' => '9',
+                    'guest_id' => 1,
+                    'start_date' => Carbon::yesterday('GMT+7')->addHour('6'),
+                    'end_date' => Carbon::yesterday('GMT+7')->addHour('8'),
+                    'cancelled' => 0
+                ],
+
+
+                //canceled
+                // [
+                //     'area_id' => '7',
+                //     'guest_id' => 1,
+                //     'start_date' => Carbon::now('GMT+7')->addHour('6'),
+                //     'end_date' => Carbon::now('GMT+7')->addHour('8'),
+                //     'cancelled' => 0
+                // ],
+                // [
+                //     'area_id' => '8',
+                //     'guest_id' => 1,
+                //     'start_date' => Carbon::now('GMT+7')->addHour('6'),
+                //     'end_date' => Carbon::now('GMT+7')->addHour('8'),
+                //     'cancelled' => 0
+                // ],
+                // [
+                //     'area_id' => '9',
+                //     'guest_id' => 1,
+                //     'start_date' => Carbon::now('GMT+7')->addHour('6'),
+                //     'end_date' => Carbon::now('GMT+7')->addHour('8'),
+                //     'cancelled' => 0
+                // ],
+
             ])->each(function ($item) {
                 Booking::create($item);
             });

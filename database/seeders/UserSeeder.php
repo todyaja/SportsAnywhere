@@ -18,21 +18,21 @@ class UserSeeder extends Seeder
         $items = collect([
             [
                 'email' => 'user1@gmail.com',
-                'username' => 'user1@gmail.com',
+                'username' => 'user1',
                 'password' => bcrypt('password'),
-                'profile_picture' => 'guest.jpg',
+                'profile_picture' => '1672942922.jpg',
                 'phone_number' => '08118423004',
                 'role' => 0
             ],  [
                 'email' => 'user2@gmail.com',
-                'username' => 'user2@gmail.com',
+                'username' => 'user2',
                 'password' => bcrypt('password'),
                 'profile_picture' => 'guest.jpg',
                 'phone_number' => '08118423004',
                 'role' => 0
             ],  [
                 'email' => 'host1@gmail.com',
-                'username' => 'host1@gmail.com',
+                'username' => 'host1',
                 'password' => bcrypt('password'),
                 'profile_picture' => 'guest.jpg',
                 'phone_number' => '08118423004',
@@ -40,14 +40,14 @@ class UserSeeder extends Seeder
             ],
             [
                 'email' => 'host2@gmail.com',
-                'username' => 'host2@gmail.com',
+                'username' => 'host2',
                 'password' => bcrypt('password'),
                 'profile_picture' => 'guest.jpg',
                 'phone_number' => '08118423004',
                 'role' => 1
             ], [
                 'email' => 'admin@gmail.com',
-                'username' => 'host2@gmail.com',
+                'username' => 'admin',
                 'password' => bcrypt('password'),
                 'profile_picture' => 'guest.jpg',
                 'phone_number' => '08118423004',
