@@ -35,5 +35,7 @@ Route::resource('search', SearchController::class);
 Route::resource('bookings', BookingController::class)->middleware('auth');
 Route::get('profile', 'App\Http\Controllers\UserController@profile')->name('profile')->middleware('auth');
 Route::get('/areaBookingPage/{areaId}', [BookingController::class, 'areaBookingNeededData'])->middleware('authGuest');
+Route::get('/createRating/{bookingId}', [BookingController::class, 'giveRating'])->middleware('authGuest');
+Route::post('/postRating', [BookingController::class, 'postRating'])->middleware('authGuest');
 Route::post('profile', 'App\Http\Controllers\UserController@update')->name('profile')->middleware('auth');
 Route::get('/manageUser', [UserController::class, 'manageUser'])->middleware('authAdmin');
