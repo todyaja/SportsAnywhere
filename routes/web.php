@@ -23,3 +23,4 @@ Route::resource('user', UserController::class);
 Route::get('home', 'App\Http\Controllers\UserController@home')->name('home');
 Route::get('login', 'App\Http\Controllers\UserController@login')->name('login');
 Route::get('register', 'App\Http\Controllers\UserController@register')->name('register');
+Route::get('aboutus', 'App\Http\Controllers\UserController@aboutus')->name('aboutus');
