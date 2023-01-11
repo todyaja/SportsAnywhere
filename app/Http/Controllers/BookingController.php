@@ -102,15 +102,21 @@ class BookingController extends Controller
 
         date_default_timezone_set('Asia/Jakarta');
 
+        if ($request->bookingDate < date("Y-m-d")) {
+            return back()->withErrors('Booking Date cannot be less than the current date');;
+        }
+
         $bookingDate = DateTime::createFromFormat('Y-m-d', $request->bookingDate);
+        
+        if ((int)$request->bookStart >= (int)$bookingDate->format('H')) {
+            return back()->withErrors('Booking Start Time cannot be greater than the current time');;
+        }
+
         $bookingDate->setTime(0, 0, 0);
         $from = clone $bookingDate;
         $bookingDate->setTime(23, 59, 59);
         $to = clone $bookingDate;
 
-        if ($request->bookingDate < date("Y-m-d")) {
-            return back()->withErrors('Booking Date cannot be less than the current date');;
-        }
 
         if ((int)$request->bookStart < (int)explode(':', $area->open_time)[0]) {
             return back()->withErrors('Booking Start Time cannot be less than Area Open Time');
