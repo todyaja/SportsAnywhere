@@ -6,9 +6,18 @@ body {
 }
 h1, h2, h3, h4, h5, h6{
     color: rgb(27, 27, 27);
-    font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 0;
 }
 #page-content {
   flex: 1 0 auto;
+}
+
+.bg-carousel{
+    height: 550px; background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.w-1000{
+    width: 1000px;
 }
