@@ -15,13 +15,16 @@ class CreateAreasTable extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('created_by')->references('id')->on('users');
+            $table->foreignId('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->string('name');
             $table->foreignId('area_type')->references('id')->on('area_types');
             $table->string('description');
             $table->integer('price');
             $table->string('address');
             $table->string('thumbnail');
+            $table->string('open_time')->default('09:00');
+            $table->string('close_time')->default('18:00');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

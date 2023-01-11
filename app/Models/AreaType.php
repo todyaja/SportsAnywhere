@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class AreaType extends Model
 {
     use HasFactory;
+    protected $table = 'area_types';
+
+    public function areas(){
+        return $this->hasMany(Area::class, "area_type");
+    }
 }
