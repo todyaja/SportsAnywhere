@@ -11,7 +11,7 @@
             <h1 class="text-white pb-5">Sports Area</h1>
             <h3 class="text-white py-5">for your daily sport needs</h3>
 
-            <a href="/about"><button class="btn btn-warning p-3">
+            <a href="/aboutus"><button class="btn btn-warning p-3">
                     <h4>Learn More<h4>
                 </button></a>
         </div>

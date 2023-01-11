@@ -45,6 +45,14 @@ class UserController extends Controller
 
         return view('login');
     }
+
+    public function profile()
+    {
+        $userInfo = User::where('id', '=', auth()->user()->id)->get()->first();
+        // $userShow = User::where('id', '=', $user->id)->auth()->user()->id;
+        return view('profile.profile', compact(['userInfo']));
+    }
+
     //function buat register
     public function register()
     {
@@ -123,16 +131,6 @@ class UserController extends Controller
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

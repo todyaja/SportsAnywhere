@@ -14,15 +14,6 @@ use App\Models\Booking;
 
 class AreaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     public function myarea()
     {
@@ -130,28 +121,6 @@ class AreaController extends Controller
         return view('area.area_detail', compact('area'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Area  $area
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Area $area)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateAreaRequest  $request
-     * @param  \App\Models\Area  $area
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateAreaRequest $request, Area $area)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

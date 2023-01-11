@@ -120,7 +120,7 @@
                     </button>
                 </h4>
                 <div class="accordion-collapse collapse show" id="collapseCompleted"aria-labelledby="headingCompleted">
-                    <div class="accordion-body d-flex flex-row w-100" style="overflow-x: scroll; min-width: 0;">
+                    <div class="accordion-body d-flex flex-row overflow-auto w-100">
                         @if ($bookings->get('completed'))
                             @foreach ($bookings->get('completed') as $completed)
                                 <div class="card my-2 me-2 pb-3" style="width: 18rem;">
