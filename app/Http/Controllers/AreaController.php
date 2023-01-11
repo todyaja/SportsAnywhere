@@ -98,7 +98,7 @@ class AreaController extends Controller
                 ]);
             };
         }
-        dd("done");
+        // dd("done");
 
         return redirect('/')
             ->with('alert', 'Your sport area has been created successfully!');
