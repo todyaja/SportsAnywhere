@@ -23,9 +23,6 @@ Route::resource('user', UserController::class);
 Route::get('/', 'App\Http\Controllers\UserController@home')->name('home');
 Route::get('login', 'App\Http\Controllers\UserController@login')->name('login');
 Route::get('register', 'App\Http\Controllers\UserController@register')->name('register');
-<<<<<<< HEAD
-Route::get('aboutus', 'App\Http\Controllers\UserController@aboutus')->name('aboutus');
-=======
 Route::post('registeruser','App\Http\Controllers\UserController@create')->name('registeruser');
 Route::post('loginprocess', 'App\Http\Controllers\UserController@loginProcess')->name('loginprocess');
 Route::post('logout', 'App\Http\Controllers\UserController@logout')->name('logout')->middleware('auth');
@@ -42,4 +39,4 @@ Route::get('/createRating/{bookingId}', [BookingController::class, 'giveRating']
 Route::post('/postRating', [BookingController::class, 'postRating'])->middleware('authGuest');
 Route::post('profile', 'App\Http\Controllers\UserController@update')->name('profile')->middleware('auth');
 Route::get('/manageUser', [UserController::class, 'manageUser'])->middleware('authAdmin');
->>>>>>> 36f42d4adc603288b744ede5bc9a2930e6972121
+Route::get('aboutus', 'App\Http\Controllers\UserController@aboutus')->name('aboutus');
