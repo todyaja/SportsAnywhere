@@ -40,3 +40,4 @@ Route::post('/postRating', [BookingController::class, 'postRating'])->middleware
 Route::post('profile', 'App\Http\Controllers\UserController@update')->name('profile')->middleware('auth');
 Route::get('/manageUser', [UserController::class, 'manageUser'])->middleware('authAdmin');
 Route::get('aboutus', 'App\Http\Controllers\UserController@aboutus')->name('aboutus');
+Route::post('/createBooking', [BookingController::class, 'create'])->middleware('authGuest');
