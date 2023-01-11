@@ -53,15 +53,12 @@ class UserController extends Controller
         return view('register');
     }
 
-    public function profile()
+    //aboutus function
+    public function aboutus()
     {
-        // dd("halo");
+        //
 
-        $userInfo = User::where('id', '=', auth()->user()->id)->get()->first();
-        // $userShow = User::where('id', '=', $user->id)->auth()->user()->id;
-        return view('profile.profile', compact(['userInfo']));
-
-        // return view('profile.profile');
+        return view('aboutus');
     }
 
     /**

@@ -39,3 +39,4 @@ Route::get('/createRating/{bookingId}', [BookingController::class, 'giveRating']
 Route::post('/postRating', [BookingController::class, 'postRating'])->middleware('authGuest');
 Route::post('profile', 'App\Http\Controllers\UserController@update')->name('profile')->middleware('auth');
 Route::get('/manageUser', [UserController::class, 'manageUser'])->middleware('authAdmin');
+Route::get('aboutus', 'App\Http\Controllers\UserController@aboutus')->name('aboutus');
