@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 
 // use alert;
 
@@ -181,8 +182,9 @@ class UserController extends Controller
         }
 
         $user->delete();
-        return redirect('/')
-            ->with('alert', $user->email . ' has been deleted successfully!');
+        Session::flash('alert', $user->email . ' has been deleted successfully!');
+        return redirect('/');
+            // ->with('alert', $user->email . ' has been deleted successfully!');
     }
 
     public function manageUser()
