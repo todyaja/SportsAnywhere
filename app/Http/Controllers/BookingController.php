@@ -88,7 +88,10 @@ class BookingController extends Controller
                 ->get();
         }
 
-        return view('area.area_booking', compact('area', 'booking', 'isBookingDateEmpty'));
+        date_default_timezone_set('Asia/Jakarta');
+        $currentDate = date("Y-m-d");
+
+        return view('area.area_booking', compact('area', 'booking', 'isBookingDateEmpty', 'currentDate'));
     }
 
     public function create(Request $request)
@@ -109,8 +112,8 @@ class BookingController extends Controller
 
         $bookingDate = DateTime::createFromFormat('Y-m-d', $request->bookingDate);
 
-        if ((int)$request->bookStart >= (int)$bookingDate->format('H')) {
-            return back()->withErrors('Booking Start Time cannot be greater than the current time');;
+        if (date("Y-m-d") == $bookingDate && (int)$request->bookStart >= (int)$bookingDate->format('H')) {
+            return back()->withErrors('Booking Start Time cannot be greater than or equal to the current time');;
         }
 
         $bookingDate->setTime(0, 0, 0);

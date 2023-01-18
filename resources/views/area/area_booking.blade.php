@@ -13,7 +13,7 @@
                         <div class="mb-0">
                             <label for="bookingDate" class="form-label d-flex justify-content-start">Booking Date</label>
                             <input type="date" class="form-control" id="bookingDate" required name="bookingDate"
-                                min="{{ date('Y-m-d') }}" value="{{ old('bookingDate', request('bookingDate')) }}">
+                                min="{{ $currentDate }}" value="{{ old('bookingDate', request('bookingDate')) }}">
                             <p class="d-flex justify-content-start text-danger">
                                 *Please choose your booking date first
                             </p>
