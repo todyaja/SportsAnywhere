@@ -107,7 +107,7 @@ class BookingController extends Controller
         }
 
         $bookingDate = DateTime::createFromFormat('Y-m-d', $request->bookingDate);
-        
+
         if ((int)$request->bookStart >= (int)$bookingDate->format('H')) {
             return back()->withErrors('Booking Start Time cannot be greater than the current time');;
         }
