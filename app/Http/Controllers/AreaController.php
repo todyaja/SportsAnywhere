@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
-use App\Models\AreaType;
-use App\Models\AreaPicture;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use App\Http\Requests\StoreAreaRequest;
-use App\Http\Requests\UpdateAreaRequest;
-use App\Models\AreaRating;
 use App\Models\Booking;
+use App\Models\AreaType;
+use App\Models\AreaRating;
+use App\Models\AreaPicture;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreAreaRequest;
+use Illuminate\Support\Facades\Session;
+use App\Http\Requests\UpdateAreaRequest;
 
 class AreaController extends Controller
 {
