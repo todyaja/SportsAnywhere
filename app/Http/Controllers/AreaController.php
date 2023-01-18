@@ -89,7 +89,7 @@ class AreaController extends Controller
                 //masukkin foto ke local file
                 $picture_area = $p;
                 $picture_area_file_name = $idx++ . time() . '.' . $picture_area->getClientOriginalExtension();
-                $picture_area_destination = public_path('/assets/area_pictures');
+                $picture_area_destination = public_path('/assets/area_picture');
                 $picture_area->move($picture_area_destination, $picture_area_file_name);
                 //masukkin ke table area_pictures
                 AreaPicture::create([
@@ -100,8 +100,9 @@ class AreaController extends Controller
         }
         // dd("done");
 
-        return redirect('/')
-            ->with('alert', 'Your sport area has been created successfully!');
+        Session::flash('alert', 'Your sport area has been created succesfully');
+
+        return redirect('/');
     }
 
     /**

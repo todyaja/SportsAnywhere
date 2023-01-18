@@ -24,7 +24,7 @@
                 @forelse ($area->areaPictures as $p)
                     <div class="carousel-item">
                         <div class="bg-carousel"
-                            style="background-image: url({{ asset('assets/area_pictures/' . $p->pictures) }});">
+                            style="background-image: url({{ asset('assets/area_picture/' . $p->pictures) }});">
                         </div>
                     </div>
                 @empty
