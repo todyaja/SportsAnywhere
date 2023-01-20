@@ -18,9 +18,9 @@
     </div>
     <div class="container d-flex flex-column">
         <h3 class="my-5">Sport Areas</h3>
-        <div class="row d-flex justify-content-start">
+        <div class="d-flex row flex-wrap mt-5 justify-content-start">
             @foreach ($data as $d)
-                <div class="col mx-auto">
+                <div class="col-3">
                     <a href="{{ url('areaPage/' . $d->id) }}" style="text-decoration: none">
                         <div class="card my-2" style="width: 18rem; height: 30rem">
                             <img src="{{ asset('assets/areas_thumbnail/' . $d->thumbnail) }}"
