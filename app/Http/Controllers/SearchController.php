@@ -97,8 +97,11 @@ class SearchController extends Controller
         if ($maxPrice) {
             $areas = $areas->where('price', '<=', $maxPrice);
         }
-
-       $areas = $areas->toQuery()->simplePaginate(6);
+        if($areas->count()!=0){
+            $areas = $areas->toQuery()->simplePaginate(6);
+        }else{
+            $areas = DB::table('areas')->where('id','0')->simplePaginate(1);
+        }
         $areaTypes = AreaType::all()->sortByDesc('id');
         return view('search.index', compact('areas', 'areaTypes'));
     }

@@ -14,6 +14,7 @@
 
 
         <div class='row d-flex '>
+            @if ($areas->count()!=0)
             <div class='d-flex col-9 flex-column'>
                 <div class="row d-flex justify-content-start g-0" id="areaList">
                    @foreach ($areas as $d)
@@ -49,6 +50,12 @@
                     {{ $areas->links()}}
                 </div>
             </div>
+            @else
+            <div class="d-flex col-9 flex-column">
+                <h3 class="text-secondary">No data available</h3>
+            </div>
+            @endif
+
 
             <div class='col-3'>
                 <div class="card p-4">
