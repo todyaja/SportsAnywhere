@@ -149,6 +149,7 @@
             })
             document.getElementById("minPrice").value = ''
             document.getElementById("maxPrice").value = ''
+            location.href = "/search";
         }
     </script>
 
