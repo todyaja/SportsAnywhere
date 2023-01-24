@@ -10,6 +10,7 @@ use App\Models\AreaRating;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class BookingController extends Controller
 {
@@ -87,7 +88,10 @@ class BookingController extends Controller
                 ->get();
         }
 
-        return view('area.area_booking', compact('area', 'booking', 'isBookingDateEmpty'));
+        date_default_timezone_set('Asia/Jakarta');
+        $currentDate = date("Y-m-d");
+
+        return view('area.area_booking', compact('area', 'booking', 'isBookingDateEmpty', 'currentDate'));
     }
 
     public function create(Request $request)
@@ -107,9 +111,9 @@ class BookingController extends Controller
         }
 
         $bookingDate = DateTime::createFromFormat('Y-m-d', $request->bookingDate);
-        
-        if ((int)$request->bookStart >= (int)$bookingDate->format('H')) {
-            return back()->withErrors('Booking Start Time cannot be greater than the current time');;
+
+        if (date("Y-m-d") == $bookingDate && (int)$request->bookStart >= (int)$bookingDate->format('H')) {
+            return back()->withErrors('Booking Start Time cannot be greater than or equal to the current time');;
         }
 
         $bookingDate->setTime(0, 0, 0);
@@ -168,8 +172,8 @@ class BookingController extends Controller
             'end_date' => $end_date,
             'cancelled' => 0,
         ]);
-
-        return redirect("/")->with('alert', 'Sport Area has been booked succesfully!');
+        $request->session()->flash('alert', 'Sport Area has been booked succesfully!');
+        return redirect("/");
     }
 
     /**
@@ -189,8 +193,8 @@ class BookingController extends Controller
         $area = Area::where('id', $booking->area_id)->first();
         // dd("halo ".auth()->user()->id. "    guest_id = ".$booking->guest_id);
         if ($booking->guest_id != auth()->user()->id) {
-
-            return redirect('/')->with('alert', 'Sorry something went wrong');
+            $request->session()->flash('alert', 'Sorry something went wrong');
+            return redirect('/');
         }
 
         return view('booking.booking_rating', compact(['area']));
@@ -206,7 +210,8 @@ class BookingController extends Controller
             'booking_id' => $request->bookingId,
         ]);
 
-        return redirect('/')->with('alert', 'Thank you for your rating !');
+        $request->session()->flash('alert', 'Thank you for your rating !');
+        return redirect('/');
     }
 
     public function destroy($id)
@@ -217,6 +222,7 @@ class BookingController extends Controller
         if ($update > 0) {
             $message = 'Booking successfully cancelled!';
         } else $message = 'Something went wrong. Please try again.';
-        return redirect('/bookings')->with('alert', $message);
+        Session::flash('alert', $message);
+        return redirect('/bookings');
     }
 }

@@ -6,17 +6,21 @@ use App\Models\Area;
 use App\Models\AreaRating;
 use App\Models\AreaType;
 use App\Models\Booking;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class SearchController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function paginateManual($items, $perPage = 6, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
     public function index(Request $request)
     {
         $areasName = Area::leftJoin('bookings', 'bookings.area_id', '=', 'areas.id')
@@ -40,9 +44,6 @@ class SearchController extends Controller
 
 
         $areas = $areasName->union($areasDesc);
-
-
-
         //sort
         $sortBy = $request->input('sortBy');
         /**
@@ -73,6 +74,7 @@ class SearchController extends Controller
                 }
         }
         $areas = $areas->get();
+
         foreach ($areas as $a) {
             $bookings = Booking::where('area_id', $a->id)->get();
             $booking_ids = [];
@@ -97,9 +99,10 @@ class SearchController extends Controller
         if ($maxPrice) {
             $areas = $areas->where('price', '<=', $maxPrice);
         }
+            $areas = $this->paginateManual($areas);
 
-       $areas = $areas->toQuery()->simplePaginate(6);
         $areaTypes = AreaType::all()->sortByDesc('id');
+
         return view('search.index', compact('areas', 'areaTypes'));
     }
 
@@ -145,6 +148,7 @@ class SearchController extends Controller
 
         $areas = $areas->get();
         $areaTypes = AreaType::all();
+        dd($areas);
         return view('search.index', compact('areas', 'areaTypes', 'categoryFilter'));
     }
 }

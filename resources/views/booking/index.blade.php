@@ -19,7 +19,7 @@
                                     <div class="col">
                                         <a href="{{ url('areaPage/' . $ongoing->area_id) }}" style="text-decoration: none"
                                             class="me-2">
-                                            <div class="card my-2" style="width: 18rem;">
+                                            <div class="card my-2"  style="width: 18rem; height: 32rem">
                                                 <img class="card-img-top" style="width: 100%; height: 200px"
                                                     class="card-img-top"
                                                     src="{{ asset('assets/areas_thumbnail/' . $ongoing->thumbnail) }}"
@@ -77,7 +77,7 @@
                                 @foreach ($bookings->get('upcoming') as $upcoming)
                                     <div class="col">
                                         <a href="{{ url('areaPage/' . $upcoming->area_id) }}" style="text-decoration: none">
-                                            <div class="card my-2 pb-3">
+                                            <div class="card my-2 pb-3" style="width: 18rem; height: 32rem">
                                                 <img class="card-img-top" style="width: 100%; height: 200px"
                                                     class="card-img-top"
                                                     src="{{ asset('assets/areas_thumbnail/' . $upcoming->thumbnail) }}"
@@ -138,7 +138,7 @@
                                     <div class="col">
                                         <a href="{{ url('areaPage/' . $completed->area_id) }}"
                                             style="text-decoration: none">
-                                            <div class="card my-2 pb-3">
+                                            <div class="card my-2 pb-3" style="width: 18rem; height: 32rem">
                                                 <img class="card-img-top" style="width: 100%; height: 200px"
                                                     class="card-img-top"
                                                     src="{{ asset('assets/areas_thumbnail/' . $completed->thumbnail) }}"
@@ -236,7 +236,7 @@
                                                         @endif
 
                                                         <p
-                                                            class="text-white bg-danger border py-1 w-100 text-center rounded-3">
+                                                            class="text-white bg-secondary border py-1 w-100 text-center rounded-3">
                                                             Cancelled</p>
                                                     </div>
                                                 </div>
