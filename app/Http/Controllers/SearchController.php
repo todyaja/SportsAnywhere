@@ -99,7 +99,9 @@ class SearchController extends Controller
         if ($maxPrice) {
             $areas = $areas->where('price', '<=', $maxPrice);
         }
-            $areas = $this->paginateManual($areas);
+            //$areas = $this->paginateManual($areas);
+            //$areas = $areas;
+            //$areas = $areas->simplePaginate(6);
 
         $areaTypes = AreaType::all()->sortByDesc('id');
 
