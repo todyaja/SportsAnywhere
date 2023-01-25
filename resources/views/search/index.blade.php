@@ -47,7 +47,7 @@
                     @endforeach
                 </div>
                 <div class='d-flex justify-content-center'>
-                    {{ $areas->links()}}
+
                 </div>
             </div>
             @else
